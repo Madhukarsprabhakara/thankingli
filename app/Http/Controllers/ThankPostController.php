@@ -7,6 +7,7 @@ use App\user_thanks;
 use App\user_thanks_comments;
 use App\User;
 use Closure;
+use Image;
 class ThankPostController extends Controller
 {
     //
@@ -18,8 +19,10 @@ class ThankPostController extends Controller
     
     public function ThankPost(Request $request)
     {
+    		$imageLoc = '/Applications/XAMPP/xamppfiles/thankingli/storage/app/thankingli-images/';
     		$newPost = new user_thanks;
     		$user = \Auth::user();
+    		$user_id=$user->id;
     		$this->validate(request(), [
     			'name'=> 'required|max:40',
     			'email' => 'nullable|email',
@@ -36,6 +39,21 @@ class ThankPostController extends Controller
     		$unique_name = md5($file);
     		
     		$relativeUrl = $file->storeAs('thankingli-images/' . \Auth::id(),"$unique_name.{$ext}");
+    		$imageFullLoc="$imageLoc"."$user_id/"."$unique_name.{$ext}";
+    		//dd($imageFullLoc);
+    		$image=Image::make($imageFullLoc);
+    		// resize the image to a width of 300 and constrain aspect ratio (auto height)
+			 // $image->resize(600, null, function ($constraint) {
+//    				  $constraint->aspectRatio();
+//  			})->save($imageFullLoc);
+ 			//$image->resize(600, 300)->save($imageFullLoc);
+ 			$image->fit(600, 300)->save($imageFullLoc);
+
+ 			//$image->save($imageFullLoc);
+    		//$image->resize(600, 300);
+    		
+    		
+    		
     		
     		$exists=User::where('email', $data['email'])->exists();
     		
