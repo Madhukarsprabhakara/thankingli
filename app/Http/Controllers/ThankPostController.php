@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\user_thanks;
 use App\user_thanks_comments;
+use App\Jobs\SendNotificationEmails;
 use App\User;
 use Closure;
 use Image;
@@ -72,7 +73,8 @@ class ThankPostController extends Controller
     		
     			if($newPost->save())
     			{
-    				
+    				$url="http://ec2-54-204-208-43.compute-1.amazonaws.com/showposts/postid/".$newPost->post_thank_id;
+    				dispatch(new SendNotificationEmails($user,$url,$toUser->name));
     				return redirect('/thankwall');
     				
     			}
@@ -91,7 +93,8 @@ class ThankPostController extends Controller
     		
     			if($newPost->save())
     			{
-    				
+    				$url="http://ec2-54-204-208-43.compute-1.amazonaws.com/emaillink/uid/".$newPost->from_id."/postid/".$newPost->from_id."?redirect-url=/registered/uid/".$newPost->from_id."/postid/".$newPost->from_id;
+    				dispatch(new SendNotificationEmails($user,$url,$data['name'],$data['email']));
     				return redirect('/thankwall');
     				
     			}
