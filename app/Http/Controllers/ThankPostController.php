@@ -34,24 +34,28 @@ class ThankPostController extends Controller
     			
     			
     		]);
-    		$data = $request->all();
-    		$file = request()->file('image');
-    		$ext = $file->guessClientExtension();
-    		$unique_name = md5($file);
     		
-    		$relativeUrl = $file->storeAs('thankingli-images/' . \Auth::id(),"$unique_name.{$ext}");
-    		$imageFullLoc="$imageLoc"."$user_id/"."$unique_name.{$ext}";
+    		
+    		$data = $request->all();
+    		if ($file = request()->file('image'))
+    		{
+    			$ext = $file->guessClientExtension();
+    			$unique_name = md5($file);
+    		
+    			$relativeUrl = $file->storeAs('thankingli-images/' . \Auth::id(),"$unique_name.{$ext}");
+    			$imageFullLoc="$imageLoc"."$user_id/"."$unique_name.{$ext}";
     		//dd($imageFullLoc);
-    		$image=Image::make($imageFullLoc);
+    			$image=Image::make($imageFullLoc);
     		// resize the image to a width of 300 and constrain aspect ratio (auto height)
 			 // $image->resize(600, null, function ($constraint) {
 //    				  $constraint->aspectRatio();
 //  			})->save($imageFullLoc);
  			//$image->resize(600, 300)->save($imageFullLoc);
- 			$image->fit(600, 300)->save($imageFullLoc);
+ 				$image->fit(600, 300)->save($imageFullLoc);
 
  			//$image->save($imageFullLoc);
     		//$image->resize(600, 300);
+    		}
     		
     		
     		
@@ -67,7 +71,10 @@ class ThankPostController extends Controller
     			$newPost->to_email = $toUser->email;
     			$newPost->to_id = $toUser->id;
     			//return 'great';
-    			$newPost->image = $relativeUrl;
+    			if ($file = request()->file('image'))
+    			{
+    				$newPost->image = $relativeUrl;
+    			}
     			$newPost->thank_title = $data['thank-title'];
     			$newPost->thank_description = $data['thank-descr'];
     		
@@ -87,7 +94,10 @@ class ThankPostController extends Controller
     			$newPost->to_email = $data['email'];
     			//$newPost->to_id = ;
     			//auth()->logout();
-    			$newPost->image = $relativeUrl;
+    			if ($file = request()->file('image'))
+    			{
+    				$newPost->image = $relativeUrl;
+    			}
     			$newPost->thank_title = $data['thank-title'];
     			$newPost->thank_description = $data['thank-descr'];
     		
