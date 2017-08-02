@@ -21,9 +21,9 @@ class PlatformController extends Controller
     public function index()
     {
         //
-        $ThankedBy = user_thanks::where('to_id',\Auth::id())->get();
+        $ThankedBy = user_thanks::where('to_id',\Auth::id())->simplePaginate(2);
         $CommentsOnPosts= user_thanks_comments::all();
-        return view('/home',compact('ThankedBy','CommentsOnPosts'));
+        return view('home',compact('ThankedBy','CommentsOnPosts'));
     }
 
     /**

@@ -17,9 +17,25 @@
 <!--     				<li>Two <input class="btn pull-right" value="test2"></li> -->
 				</ul>
                 <ol class="breadcrumb">
-                    <li><a href="{{URL::asset('')}}">Home</a>
-                    </li>
-                    <li class="active">Thank Home</li>
+                  <li>
+ <div class="dropdown">
+  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+    More...
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+    <li><a class="pull-left" href="{{URL::asset('latestposts')}}" >Latest posts <i class="fa fa-angle-right"></i></a></li>
+    <!-- 
+<li><a href="#">Another action</a></li>
+    <li><a href="#">Something else here</a></li>
+    <li role="separator" class="divider"></li>
+    <li><a href="#">Separated link</a></li>
+ -->
+  </ul>
+</div>
+</li>
+                    
+<!--                     <a class="pull-right" href="{{URL::asset('thankwall')}}" >Latest thank stories <i class="fa fa-angle-right"></i></a> -->
                     <a class="pull-right" href="{{URL::asset('home')}}" >People who thanked you! <i class="fa fa-angle-right"></i></a>
                 </ol>
                 
@@ -92,6 +108,8 @@
                 @endif
                 @endforeach
       </div>
+<!--       {{ $ThankedBy->links() }} -->
+<!--       {{$ThankedBy->nextPageUrl()}} -->
     </div>            
         <!--ends here-->
   
@@ -162,9 +180,9 @@
         <!-- Pager -->
         <div class="row">
             <ul class="pager">
-                <li class="previous"><a href="#">&larr; Older</a>
+                <li class="previous"><a href="{{$ThankedBy->previousPageUrl()}}">&larr; Previous</a>
                 </li>
-                <li class="next"><a href="#">Newer &rarr;</a>
+                <li class="next"><a href="{{$ThankedBy->nextPageUrl()}}">Next &rarr;</a>
                 </li>
             </ul>
         </div>

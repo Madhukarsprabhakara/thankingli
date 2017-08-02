@@ -35,7 +35,7 @@ class NotifyEmail extends Mailable
      */
     public function build()
     {
-    	$subject = $this->name .", you were thanked by " .$this->user->name. " on, Thankingli!";
+    	$subject = $this->name .", you were thanked by someone on Thankingli!";
         return $this->markdown('emails/NotifyEmail',compact('user'))
         			->subject($subject)
         			->with('name',$this->name)

@@ -24,6 +24,8 @@ Route::get('/home','PlatformController@index')->name('home');
 Route::get('/thankwall','ThankPostController@showYouThanked');
 Route::get('/emaillink/uid/{id}/postid/{postid}','ThankPostController@emailLink');
 Route::get('/registered/uid/{id}/postid/{postid}','ThankPostController@registeredLink');
+Route::get('/showposts/postid/{postid}','ThankPostController@ShowPostId');
+Route::get('/latestposts','ThankPostController@showTopFivePosts');
 
 Route::post('/create-user','CustomRegistrationController@RegControlWithQueryParam');
 

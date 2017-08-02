@@ -80,8 +80,8 @@ class ThankPostController extends Controller
     		
     			if($newPost->save())
     			{
-    				$url="http://ec2-54-204-208-43.compute-1.amazonaws.com/showposts/postid/".$newPost->post_thank_id;
-    				dispatch(new SendNotificationEmails($user,$url,$toUser->name));
+    				$url="http://localhost/showposts/postid/".$newPost->post_thank_id;
+    				dispatch(new SendNotificationEmails($user,$url,$toUser->name,$newPost->to_email));
     				return redirect('/thankwall');
     				
     			}
@@ -103,7 +103,7 @@ class ThankPostController extends Controller
     		
     			if($newPost->save())
     			{
-    				$url="http://ec2-54-204-208-43.compute-1.amazonaws.com/emaillink/uid/".$newPost->from_id."/postid/".$newPost->from_id."?redirect-url=/registered/uid/".$newPost->from_id."/postid/".$newPost->from_id;
+    				$url="http://ec2-54-204-208-43.compute-1.amazonaws.com/emaillink/uid/".$newPost->from_id."/postid/".$newPost->post_thank_id."?redirect-url=/registered/uid/".$newPost->from_id."/postid/".$newPost->post_thank_id;
     				dispatch(new SendNotificationEmails($user,$url,$data['name'],$data['email']));
     				return redirect('/thankwall');
     				
@@ -157,10 +157,11 @@ class ThankPostController extends Controller
     public function index()
     {
         //
-        $ThankedBy = user_thanks::where('to_id',\Auth::id())->get();
+        $ThankedBy = user_thanks::where('to_id',\Auth::id())->simplePaginate(2);
         //$ThankComments = user_thanks_comments::
+        $CommentsOnPosts= user_thanks_comments::all();
         
-        return view('/home',compact('ThankedBy'));
+        return view('home',compact('ThankedBy','CommentsOnPosts'));
     }
 
     /**
@@ -193,7 +194,7 @@ class ThankPostController extends Controller
     public function showYouThanked(Request $request)
     {
         //
-        $ThankedBy = user_thanks::where('from_id',\Auth::id())->get();
+        $ThankedBy = user_thanks::where('from_id',\Auth::id())->simplePaginate(3);
         $CommentsOnPosts= user_thanks_comments::all();
         //return view('/home',compact('ThankedBy'));
         //dd($request->server('HTTP_REFERER'));
@@ -203,10 +204,27 @@ class ThankPostController extends Controller
     
 	public function showThankedYou($id)
     {
-    	$ThankedBy = user_thanks::where('to_id',\Auth::id())->get();
+    	$ThankedBy = user_thanks::where('to_id',\Auth::id())->simplePaginate(3);
         $CommentsOnPosts= user_thanks_comments::all();
-        return view('/home',compact('ThankedBy'));
+        return view('/home',compact('ThankedBy','CommentsOnPosts'));
         //
+    }
+    public function ShowPostId($postid)
+    {
+    
+    	$ThankedBy = user_thanks::where('post_thank_id',$postid)->get();
+    	$CommentsOnPosts= user_thanks_comments::all();
+    	return view('/home',compact('ThankedBy','CommentsOnPosts'));
+    
+    }
+    
+    public function showTopFivePosts()
+    {
+    	
+    	$ThankedBy = user_thanks::orderBy('created_at','desc')->simplePaginate(2);
+        $CommentsOnPosts= user_thanks_comments::all();
+        return view('latest-ten-posts',compact('ThankedBy','CommentsOnPosts'));
+    
     }
     /**
      * Show the form for editing the specified resource.

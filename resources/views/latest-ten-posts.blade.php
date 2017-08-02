@@ -7,26 +7,18 @@
 		
 		@include('validation-errors')
 		
-		
-		
-<!-- 			<a class="pull-right" href="#" data-toggle="modal" data-target="#thank-someone" data-dismiss="modal">latest posts <i class="fa fa-angle-right"></i></a>	 -->
-	
-	
-                
 		<form class="navbar-form navbar-right">
-		
         <div class="form-group">
           <input type="text" class="form-control" placeholder="Search">
         </div>
         	<button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"> </span></button>
       </form>
-	
-
+		
         <div class="row">
         
             <div class="col-lg-12">
                 <h1 class="page-header">
-                    <small>People who thanked you</small>
+                    <small>Recent activities</small>
                     <a class="btn btn-primary pull-right" href="#" data-toggle="modal" data-target="#thank-someone" data-dismiss="modal">Thank Someone! <i class="fa fa-angle-right"></i></a>
                 </h1>
                 <ul>
@@ -34,20 +26,17 @@
 <!--     				<li>Two <input class="btn pull-right" value="test2"></li> -->
 				</ul>
                 <ol class="breadcrumb">
-                    <!-- 
-<li><a href="#">Home</a>
-                    </li>
-                    <li class="active">Thank Home</li>
-                    
- -->
- <li>
+                
+<!--                 <a class="pull-left" href="{{URL::asset('home')}}" >People who thanked you! <i class="fa fa-angle-right"></i></a> -->
+                
+                    <li>
  <div class="dropdown">
   <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
     More...
     <span class="caret"></span>
   </button>
   <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-    <li><a class="pull-left" href="{{URL::asset('latestposts')}}" >Latest posts <i class="fa fa-angle-right"></i></a></li>
+    <li><a class="pull-left" href="{{URL::asset('latestposts')}}" >Latest thank posts <i class="fa fa-angle-right"></i></a></li>
     <!-- 
 <li><a href="#">Another action</a></li>
     <li><a href="#">Something else here</a></li>

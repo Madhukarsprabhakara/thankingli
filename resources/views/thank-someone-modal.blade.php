@@ -44,9 +44,9 @@
                     <div>
                         <div class="checkbox login-remember">
                             <label>
-                                <input name="surprise" id="surprise" value="forever" checked="checked"
+                                <input name="surprise" id="surprise" value="0" 
                                        type="checkbox">
-                                Is this a surprise? (Your name will not be included in the notification)</label>
+                                Are you friends with this person? (The person will be asked to confirm in the notification)</label>
                         </div>
                     </div>
                 </div>
