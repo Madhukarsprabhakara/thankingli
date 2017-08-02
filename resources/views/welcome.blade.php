@@ -24,9 +24,9 @@
 				<h3>Go ahead thank your family, friends, a country, a state, your dog,  well, just about anyone, anything or anyplace.</h3>
 				</div>
 				<div class="col-md-6 col-md-offset-3">
-					<a class="btn btn-primary pull-center" href="http://localhost/register">Sign up! <i class="fa fa-angle-right"></i></a>
+					<a class="btn btn-primary pull-center" href="http://www.thankingli.com/register">Sign up! <i class="fa fa-angle-right"></i></a>
 					or
-					<a class="btn btn-primary pull-center" href="http://localhost/login">Sign in! <i class="fa fa-angle-right"></i></a>
+					<a class="btn btn-primary pull-center" href="http://www.thankingli.com/login">Sign in! <i class="fa fa-angle-right"></i></a>
                 </div>
                 <!-- 
 <div class="links">
