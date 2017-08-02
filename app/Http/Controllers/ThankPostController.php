@@ -29,7 +29,7 @@ class ThankPostController extends Controller
     			'email' => 'nullable|email',
     			'thank-title'=> 'required|max:100',
     			'thank-descr'=>'required|max:500',
-    			'image'=> 'nullable|image|mimes:jpeg,jpg,png|max:2000'
+    			'image'=> 'nullable|image|mimes:jpeg,jpg,png|max:3000'
     			
     			
     			
@@ -80,7 +80,8 @@ class ThankPostController extends Controller
     		
     			if($newPost->save())
     			{
-    				$url="http://localhost/showposts/postid/".$newPost->post_thank_id;
+    				$url="http://localhost/showposts/postid/".$newPost->id;
+    				//dd($newPost->id);
     				dispatch(new SendNotificationEmails($user,$url,$toUser->name,$newPost->to_email));
     				return redirect('/thankwall');
     				
@@ -103,7 +104,8 @@ class ThankPostController extends Controller
     		
     			if($newPost->save())
     			{
-    				$url="http://ec2-54-204-208-43.compute-1.amazonaws.com/emaillink/uid/".$newPost->from_id."/postid/".$newPost->post_thank_id."?redirect-url=/registered/uid/".$newPost->from_id."/postid/".$newPost->post_thank_id;
+    				$url="http://ec2-54-204-208-43.compute-1.amazonaws.com/emaillink/uid/".$newPost->from_id."/postid/".$newPost->id."?redirect-url=/registered/uid/".$newPost->from_id."/postid/".$newPost->id;
+    				//dd($newPost->id);
     				dispatch(new SendNotificationEmails($user,$url,$data['name'],$data['email']));
     				return redirect('/thankwall');
     				
@@ -212,7 +214,7 @@ class ThankPostController extends Controller
     public function ShowPostId($postid)
     {
     
-    	$ThankedBy = user_thanks::where('post_thank_id',$postid)->get();
+    	$ThankedBy = user_thanks::where('post_thank_id',$postid)->simplePaginate(1);
     	$CommentsOnPosts= user_thanks_comments::all();
     	return view('/home',compact('ThankedBy','CommentsOnPosts'));
     

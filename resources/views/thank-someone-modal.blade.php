@@ -37,7 +37,7 @@
                 </div>
                 <div class="form-group">
                 	<label class="btn btn-default">
-   						 Upload an image of the person <input name="image" type="file" hidden>
+   						 Upload a photo of yourself(So the person knows who's thanking) <input name="image" type="file" hidden>
 					</label>
 				</div>
                 <div class="form-group">
