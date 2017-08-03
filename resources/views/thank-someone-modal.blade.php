@@ -37,16 +37,19 @@
                 </div>
                 <div class="form-group">
                 	<label class="btn btn-default">
-   						 Upload a photo of yourself(So the person knows who's thanking) <input name="image" type="file" hidden>
+   						 Upload a photo of yourself (So the person knows who's thanking) <input name="image" type="file" hidden>
 					</label>
 				</div>
                 <div class="form-group">
                     <div>
                         <div class="checkbox login-remember">
                             <label>
-                                <input name="surprise" id="surprise" value="0" 
+                                <!-- 
+<input name="surprise" id="surprise" value="0" 
                                        type="checkbox">
                                 Are you friends with this person? (The person will be asked to confirm in the notification)</label>
+ -->
+                                <p>Note: Please use a horizontal image while our engineers work on a fancy image processor!<p>
                         </div>
                     </div>
                 </div>

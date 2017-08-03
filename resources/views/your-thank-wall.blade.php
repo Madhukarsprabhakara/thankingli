@@ -16,7 +16,7 @@
     				 
 <!--     				<li>Two <input class="btn pull-right" value="test2"></li> -->
 				</ul>
-                @include('breadcrumb-home')
+                 @include('navbar-thankwall')
                 
             </div>
         </div>
@@ -30,7 +30,7 @@
                 <p>{{$ThankedByUser->created_at}}</p>
             </div>
             <div class="col-md-5">
-                <a href="blog-post.html">
+                <a href="#">
                     <img class="img-responsive img-hover" src="{{URL::asset('')}}{{$ThankedByUser->image}}" alt="">
                 </a>
             </div>
@@ -44,7 +44,7 @@
                 <p>by <a href="#">{{$ThankedByUser->from_name}}</a>
                 </p>
                 <p>{{$ThankedByUser->thank_description}}.</p>
-                <a class="btn btn-primary" href="blog-post.html">Read More <i class="fa fa-angle-right"></i></a>
+                <a class="btn btn-primary" href="#">Read More <i class="fa fa-angle-right"></i></a>
                 <hr>
                    <!--commenting section-->
   <div id="accordion" role="tablist" aria-multiselectable="true">  
@@ -113,17 +113,17 @@
                 <p>June 17, 2014</p>
             </div>
             <div class="col-md-5">
-                <a href="blog-post.html">
+                <a href="#">
                     <img class="img-responsive img-hover" src="http://localhost/thankingli-images/posts/IMG_2365.JPG.jpeg" alt="">
                 </a>
             </div>
             <div class="col-md-6">
-                <h3><a href="blog-post.html">Blog Post Title</a>
+                <h3><a href="#">Blog Post Title</a>
                 </h3>
                 <p>by <a href="#">Start Bootstrap</a>
                 </p>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                <a class="btn btn-primary" href="blog-post.html">Read More <i class="fa fa-angle-right"></i></a>
+                <a class="btn btn-primary" href="#">Read More <i class="fa fa-angle-right"></i></a>
             </div>
         </div>
         <!~~ /.row ~~>
@@ -138,17 +138,17 @@
                 <p>June 17, 2014</p>
             </div>
             <div class="col-md-5">
-                <a href="blog-post.html">
+                <a href="#">
                     <img class="img-responsive img-hover" src="http://localhost/thankingli-images/posts/IMG_2806.PNG" alt="">
                 </a>
             </div>
             <div class="col-md-6">
-                <h3><a href="blog-post.html">Blog Post Title</a>
+                <h3><a href="#">Blog Post Title</a>
                 </h3>
                 <p>by <a href="#">Start Bootstrap</a>
                 </p>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                <a class="btn btn-primary" href="blog-post.html">Read More <i class="fa fa-angle-right"></i></a>
+                <a class="btn btn-primary" href="#">Read More <i class="fa fa-angle-right"></i></a>
             </div>
         </div>
         <!~~ /.row ~~>

@@ -12,14 +12,15 @@
 <!-- 			<a class="pull-right" href="#" data-toggle="modal" data-target="#thank-someone" data-dismiss="modal">latest posts <i class="fa fa-angle-right"></i></a>	 -->
 	
 	
-                
-		<form class="navbar-form navbar-right">
+       <!-- 
+<div class="row">
+       		
+       		<div class="col-xs-6 col-md-4"></div>
+  			<div class="col-xs-6 col-md-4"><h3>Feel grateful today?</h3> <a class="btn btn-primary pull-right" href="#" data-toggle="modal" data-target="#thank-someone" data-dismiss="modal">Thank Someone! </i></a></div>
+  			
+		</div> 
+ -->        
 		
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search">
-        </div>
-        	<button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"> </span></button>
-      </form>
 	
 
         <div class="row">
@@ -33,7 +34,7 @@
     				 
 <!--     				<li>Two <input class="btn pull-right" value="test2"></li> -->
 				</ul>
-                @include('breadcrumb-home')
+                @include('navbar')
                 
             </div>
         </div>
@@ -47,18 +48,18 @@
                 <p>{{$ThankedByUser->created_at}}</p>
             </div>
             <div class="col-md-5">
-                <a href="blog-post.html">
+                <a href="#">
                     <img class="img-responsive img-hover" src="{{URL::asset('')}}{{$ThankedByUser->image}}" alt="">
                 </a>
             </div>
             <div class="col-md-6">
                 <h3>
-                    <a href="blog-post.html">{{$ThankedByUser->thank_title}}</a>
+                    <a href="#">{{$ThankedByUser->thank_title}}</a>
                 </h3>
                 <p>by <a href="#">{{$ThankedByUser->from_name}}</a>
                 </p>
                 <p>{{$ThankedByUser->thank_description}}.</p>
-                <a class="btn btn-primary" href="blog-post.html">Read More <i class="fa fa-angle-right"></i></a>
+                <a class="btn btn-primary" href="#">Read More <i class="fa fa-angle-right"></i></a>
                 <hr>
     <!--commenting section-->
   <div id="accordion" role="tablist" aria-multiselectable="true">  
@@ -121,17 +122,17 @@
                 <p>June 17, 2014</p>
             </div>
             <div class="col-md-5">
-                <a href="blog-post.html">
+                <a href="#">
                     <img class="img-responsive img-hover" src="http://localhost/thankingli-images/posts/IMG_2365.JPG.jpeg" alt="">
                 </a>
             </div>
             <div class="col-md-6">
-                <h3><a href="blog-post.html">Blog Post Title</a>
+                <h3><a href="#">Blog Post Title</a>
                 </h3>
                 <p>by <a href="#">Start Bootstrap</a>
                 </p>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                <a class="btn btn-primary" href="blog-post.html">Read More <i class="fa fa-angle-right"></i></a>
+                <a class="btn btn-primary" href="#">Read More <i class="fa fa-angle-right"></i></a>
             </div>
         </div>
         <!~~ /.row ~~>
@@ -146,17 +147,17 @@
                 <p>June 17, 2014</p>
             </div>
             <div class="col-md-5">
-                <a href="blog-post.html">
+                <a href="#">
                     <img class="img-responsive img-hover" src="http://localhost/thankingli-images/posts/IMG_2806.PNG" alt="">
                 </a>
             </div>
             <div class="col-md-6">
-                <h3><a href="blog-post.html">Blog Post Title</a>
+                <h3><a href="#">Blog Post Title</a>
                 </h3>
                 <p>by <a href="#">Start Bootstrap</a>
                 </p>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                <a class="btn btn-primary" href="blog-post.html">Read More <i class="fa fa-angle-right"></i></a>
+                <a class="btn btn-primary" href="#">Read More <i class="fa fa-angle-right"></i></a>
             </div>
         </div>
         <!~~ /.row ~~>

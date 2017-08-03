@@ -50,10 +50,10 @@ return [
 
         'sqs' => [
             'driver' => 'sqs',
-            'key' => 'your-public-key',
-            'secret' => 'your-secret-key',
-            'prefix' => 'https://sqs.us-east-1.amazonaws.com/your-account-id',
-            'queue' => 'your-queue-name',
+            'key' => 'AKIAJVUE6HA3KVGGIW3Q',
+            'secret' => 'NHskLo3BxJEY6mlhj9wkjwqNia5Ni2/33pgLBdA8',
+            'prefix' => 'https://sqs.us-east-1.amazonaws.com/040948126119',
+            'queue' => 'thankingli',
             'region' => 'us-east-1',
         ],
 

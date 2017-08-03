@@ -196,7 +196,7 @@ class ThankPostController extends Controller
     public function showYouThanked(Request $request)
     {
         //
-        $ThankedBy = user_thanks::where('from_id',\Auth::id())->simplePaginate(3);
+        $ThankedBy = user_thanks::where('from_id',\Auth::id())->simplePaginate(5);
         $CommentsOnPosts= user_thanks_comments::all();
         //return view('/home',compact('ThankedBy'));
         //dd($request->server('HTTP_REFERER'));
@@ -206,7 +206,7 @@ class ThankPostController extends Controller
     
 	public function showThankedYou($id)
     {
-    	$ThankedBy = user_thanks::where('to_id',\Auth::id())->simplePaginate(3);
+    	$ThankedBy = user_thanks::where('to_id',\Auth::id())->simplePaginate(5);
         $CommentsOnPosts= user_thanks_comments::all();
         return view('/home',compact('ThankedBy','CommentsOnPosts'));
         //
@@ -223,7 +223,7 @@ class ThankPostController extends Controller
     public function showTopFivePosts()
     {
     	
-    	$ThankedBy = user_thanks::orderBy('created_at','desc')->simplePaginate(2);
+    	$ThankedBy = user_thanks::orderBy('created_at','desc')->simplePaginate(5);
         $CommentsOnPosts= user_thanks_comments::all();
         return view('latest-ten-posts',compact('ThankedBy','CommentsOnPosts'));
     
