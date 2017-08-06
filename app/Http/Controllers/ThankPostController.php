@@ -196,7 +196,7 @@ class ThankPostController extends Controller
     public function showYouThanked(Request $request)
     {
         //
-        $ThankedBy = user_thanks::where('from_id',\Auth::id())->simplePaginate(5);
+        $ThankedBy = user_thanks::where('from_id',\Auth::id())->orderBy('created_at','desc')->simplePaginate(5);
         $CommentsOnPosts= user_thanks_comments::all();
         //return view('/home',compact('ThankedBy'));
         //dd($request->server('HTTP_REFERER'));

@@ -49,7 +49,8 @@
                                        type="checkbox">
                                 Are you friends with this person? (The person will be asked to confirm in the notification)</label>
  -->
-                                <p>Note: Please use a horizontal image while our engineers work on a fancy image processor!<p>
+                                <p>Note: You will only need to upload your image once, we'd use the same image for subsequent thanks posts. 
+                                Please use a horizontal image while our engineers work on a fancy image processor!<p>
                         </div>
                     </div>
                 </div>

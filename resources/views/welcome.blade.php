@@ -8,7 +8,7 @@
                     @if (Auth::check())
                         <a href="{{ url('/home') }}">Home</a>
                     @else
-                        <a href="{{ url('/login') }}">Login</a>
+                        <a href="{{ url('/login') }}">Sign in</a>
                         <a href="{{ url('/register') }}">Sign up</a>
                     @endif
                 </div>
@@ -20,7 +20,7 @@
                 </div>
 				
 				<div >
-				<h3>We all are helped by someone or something along our journey, Please take a moment to thank them.</h3>
+				<h3>We are all helped  by someone or something along our journey; Please take a moment to thank them.</h3>
 				<h3>Go ahead thank your family, friends, a country, a state, your dog,  well, just about anyone, anything or anyplace.</h3>
 				</div>
 				<div class="col-md-6 col-md-offset-3">
