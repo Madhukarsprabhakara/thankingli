@@ -12,10 +12,10 @@
       <ul class="nav navbar-nav">
         
         <li class="active">
-          <a  href="/home">People who thanked you </span></a>
+          <a  href="/home">People who thanked {{$userOnId->name}} </span></a>
         
         </li>
-        <li><a href="/thankwall">People you thanked</a></li>
+        <li><a href="/thankwall/id/{{$userOnId->id}}">People {{$userOnId->name}} thanked</a></li>
         <li><a href="/latestposts">Look who's thanking</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">

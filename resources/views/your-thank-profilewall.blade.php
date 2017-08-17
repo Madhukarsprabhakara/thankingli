@@ -3,38 +3,20 @@
 @section('content')
  <div class="container">
 		<!--Modal code here-->
-		@include('thank-someone-modal')
+		@include('thank-profile-modal')
 		
 		@include('validation-errors')
-		
-		
-		
-<!-- 			<a class="pull-right" href="#" data-toggle="modal" data-target="#thank-someone" data-dismiss="modal">latest posts <i class="fa fa-angle-right"></i></a>	 -->
-	
-	
-       <!-- 
-<div class="row">
-       		
-       		<div class="col-xs-6 col-md-4"></div>
-  			<div class="col-xs-6 col-md-4"><h3>Feel grateful today?</h3> <a class="btn btn-primary pull-right" href="#" data-toggle="modal" data-target="#thank-someone" data-dismiss="modal">Thank Someone! </i></a></div>
-  			
-		</div> 
- -->        
-		
-	
-
         <div class="row">
-        
             <div class="col-lg-12">
                 <h1 class="page-header">
-                    <small>People who thanked you</small>
-                    <a class="btn btn-primary pull-right" href="#" data-toggle="modal" data-target="#thank-someone" data-dismiss="modal">Thank Someone! <i class="fa fa-angle-right"></i></a>
+                    <small>{{$userOnId->name}}</small>
+                    <a class="btn btn-primary pull-right" href="#" data-toggle="modal" data-target="#thank-profile" data-dismiss="modal">Thank {{$userOnId->name}}! <i class="fa fa-angle-right"></i></a>
                 </h1>
                 <ul>
     				 
 <!--     				<li>Two <input class="btn pull-right" value="test2"></li> -->
 				</ul>
-                @include('navbar')
+                 @include('navbar-profile-thankwall')
                 
             </div>
         </div>
@@ -49,12 +31,12 @@
             </div>
             <div class="col-md-5">
                 <a href="#">
-                    <img class="img-responsive img-hover" src="{{URL::asset('')}}{{$ThankedByUser->image}}" alt="thankingli.jpg">
+                    <img class="img-responsive img-hover" src="{{URL::asset('')}}{{$ThankedByUser->image}}" alt="">
                 </a>
             </div>
             <div class="col-md-6">
             <h3>
-                    Thank you <a href="#">{{$ThankedByUser->to_name}} </a>
+                   Thank you <a href="#">{{$ThankedByUser->to_name}} </a>
                 </h3>
                 <h4>
                     <a href="#">{{$ThankedByUser->thank_title}}</a>
@@ -64,9 +46,9 @@
                 <p>{{$ThankedByUser->thank_description}}.</p>
                 <a class="btn btn-primary" href="#">Read More <i class="fa fa-angle-right"></i></a>
                 <hr>
-    <!--commenting section-->
+                   <!--commenting section-->
   <div id="accordion" role="tablist" aria-multiselectable="true">  
-  <a data-toggle="collapse"  data-parent="#accordion" href="#{{$ThankedByUser->post_thank_id}}" aria-expanded="true" aria-controls="{{$ThankedByUser->post_thank_id}}">
+  <a data-toggle="collapse" data-parent="#accordion" href="#{{$ThankedByUser->post_thank_id}}" aria-expanded="true" aria-controls="{{$ThankedByUser->post_thank_id}}">
            <span class="glyphicon glyphicon-comment"> </span> 
            
            
@@ -105,13 +87,19 @@
                 @endif
                 @endforeach
       </div>
+<!--       {{ $ThankedBy->links() }} -->
+<!--       {{$ThankedBy->nextPageUrl()}} -->
     </div>            
         <!--ends here-->
-                
+  
+
             </div>
         </div>
-        
         <hr>
+        
+        
+        
+        
         <!-- /.row -->
 @endforeach
         

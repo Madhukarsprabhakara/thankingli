@@ -36,8 +36,8 @@ class PostCommentsController extends Controller
     			{
     				//send email here
     				//dd($ThankPostId->from_id);
-    				$fromId = $ThankPostId->from_id;
-    				$CommentURL = "/showposts/postid/".$postid;
+    				$fromId = $user->id;
+    				$CommentURL = "https://www.thankingli.com/showposts/postid/".$postid;
     				dispatch(new SendCommentNotificationEmails($postid,$CommentURL,$fromId));
     				return back();
     			}

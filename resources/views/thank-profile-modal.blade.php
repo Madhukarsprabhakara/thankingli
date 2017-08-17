@@ -1,25 +1,22 @@
-<div class="modal signUpContent fade" id="thank-someone" tabindex="-1" role="dialog">
+<div class="modal signUpContent fade" id="thank-profile" tabindex="-1" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times; </button>
                 <h3 class="modal-title-site text-center"> Keep thanking! </h3>
             </div>
-            
             <div class="modal-body">
-            
-            	<p>This option is used to thank people who are NOT on the platform. To look for people already on the platfrom, please use the search option.</p>
                <form method="post" id="loginsubmit" action="/postthank" enctype="multipart/form-data"> 
 					{{csrf_field()}}
                 <div class="form-group reg-username">
                     <div>
-                        <input name="name" class="form-control input" size="40" placeholder="Name of the person you wish to thank"
-                               type="text" required>
+                        <input name="name" class="form-control input" size="40" value="{{$userOnId->name}}"
+                               type="text" readonly="readonly">
                     </div>
                 </div>
                 <div class="form-group reg-email">
                     <div>
-                        <input name="email" class="form-control input" size="100" placeholder="Email of the person you wish to thank" type="email">
+                        <input name="email" class="form-control input" size="100" value="{{$userOnId->email}}" readonly="readonly" type="hidden" >
                     </div>
                 </div>
                 <div class="form-group reg-password">
@@ -45,7 +42,7 @@
    						 Upload a photo of yourself (So the person knows who's thanking) <input name="image" type="file" hidden>
 					</label>
  -->
-					<p>Note: We have a photo of yours on the file, that will be used in your thank post!<p>
+					<p>Note: We have a phpto of yours on the file, that will be used in your thank post!<p>
 				</div>
 				@else
 				<div class="form-group">

@@ -20,7 +20,7 @@ class UserThankComments extends Migration
             $table->integer('post_id')->unsigned();
             $table->foreign('post_id')->references('post_thank_id')->on('user_thanks');
             $table->string('comment_name');
-            $table->string('comment_text');
+            $table->string('comment_text',400);
             $table->timestamps();
         });
     }

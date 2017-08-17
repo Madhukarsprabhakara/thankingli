@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Jobs\SendWelcomeToThankingliEmail;
 class CustomRegistrationController extends Controller
 {
     //
@@ -22,7 +23,8 @@ class CustomRegistrationController extends Controller
             'email' => $request['email'],
             'password' => bcrypt($request['password']),
         ]);
-        auth()->login($user);
+        auth()->login($user); 
+        dispatch(new SendWelcomeToThankingliEmail($user);
     	return redirect($request['referer-url']);
     
     }

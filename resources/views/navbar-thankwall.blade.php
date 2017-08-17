@@ -6,7 +6,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <a class="navbar-brand" href="/home">Home</a>
+      <a class="navbar-brand" href="/home"><span class="glyphicon glyphicon-home"></span></a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
@@ -19,13 +19,7 @@
         <li><a href="/latestposts">Look who's thanking</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <form class="navbar-form navbar-right">
-		
-        			<div class="form-group">
-          				<input type="text" class="form-control" placeholder="Search">
-       				 </div>
-        			<button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"> </span></button>
-      			</form>
+         @include('search-form')
       </ul>
     </div>
   </div>

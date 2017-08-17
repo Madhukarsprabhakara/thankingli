@@ -3,7 +3,7 @@
 @section('content')
  <div class="container">
 		<!--Modal code here-->
-		@include('thank-someone-modal')
+		@include('thank-profile-modal')
 		
 		@include('validation-errors')
 		
@@ -27,14 +27,14 @@
         
             <div class="col-lg-12">
                 <h1 class="page-header">
-                    <small>People who thanked you</small>
-                    <a class="btn btn-primary pull-right" href="#" data-toggle="modal" data-target="#thank-someone" data-dismiss="modal">Thank Someone! <i class="fa fa-angle-right"></i></a>
+                    <small>{{$userOnId->name}}</small>
+                    <a class="btn btn-primary pull-right" href="#" data-toggle="modal" data-target="#thank-profile" data-dismiss="modal">Thank {{$userOnId->name}}! <i class="fa fa-angle-right"></i></a>
                 </h1>
                 <ul>
     				 
 <!--     				<li>Two <input class="btn pull-right" value="test2"></li> -->
 				</ul>
-                @include('navbar')
+                @include('profile-navbar')
                 
             </div>
         </div>
@@ -49,11 +49,11 @@
             </div>
             <div class="col-md-5">
                 <a href="#">
-                    <img class="img-responsive img-hover" src="{{URL::asset('')}}{{$ThankedByUser->image}}" alt="thankingli.jpg">
+                    <img class="img-responsive img-hover" src="{{URL::asset('')}}{{$ThankedByUser->image}}" alt="">
                 </a>
             </div>
             <div class="col-md-6">
-            <h3>
+                 <h3>
                     Thank you <a href="#">{{$ThankedByUser->to_name}} </a>
                 </h3>
                 <h4>
@@ -66,7 +66,7 @@
                 <hr>
     <!--commenting section-->
   <div id="accordion" role="tablist" aria-multiselectable="true">  
-  <a data-toggle="collapse"  data-parent="#accordion" href="#{{$ThankedByUser->post_thank_id}}" aria-expanded="true" aria-controls="{{$ThankedByUser->post_thank_id}}">
+  <a data-toggle="collapse" data-parent="#accordion" href="#{{$ThankedByUser->post_thank_id}}" aria-expanded="true" aria-controls="{{$ThankedByUser->post_thank_id}}">
            <span class="glyphicon glyphicon-comment"> </span> 
            
            

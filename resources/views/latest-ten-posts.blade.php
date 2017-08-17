@@ -34,14 +34,17 @@
             </div>
             <div class="col-md-5">
                 <a href="#">
-                    <img class="img-responsive img-hover" src="{{URL::asset('')}}{{$ThankedByUser->image}}" alt="">
+                    <img class="img-responsive img-hover" src="{{URL::asset('')}}{{$ThankedByUser->image}}" alt="http://placehold.it/600x300">
                 </a>
             </div>
             <div class="col-md-6">
-                <h3>
-                    <a href="#">{{$ThankedByUser->thank_title}}</a>
+                 <h3>
+                    Thank you <a href="#">{{$ThankedByUser->to_name}} </a>
                 </h3>
-                <p>by <a href="#">{{$ThankedByUser->from_name}}</a>
+                <h4>
+                    <a href="#">{{$ThankedByUser->thank_title}}</a>
+                </h4>
+                <p>by <a href="{{URL::asset('profile/id')}}/{{$ThankedByUser->from_id}}">{{$ThankedByUser->from_name}}</a>
                 </p>
                 <p>{{$ThankedByUser->thank_description}}.</p>
                 <a class="btn btn-primary" href="#">Read More <i class="fa fa-angle-right"></i></a>
@@ -54,12 +57,12 @@
            
         </a>
         <span class="glyphicon glyphicon-heart"> </span>
-    <div id="{{$ThankedByUser->post_thank_id}}" class="collapse" role="tabpanel" aria-labelledby="headingOne">
+    <div id="{{$ThankedByUser->post_thank_id}}" class="collapse in" role="tabpanel" aria-labelledby="headingOne">
         <div class="well">
                     <h4>Leave a Comment:</h4>
                     <form role="form" method="post" action="{{URL::asset('')}}comments/{{$ThankedByUser->post_thank_id}}/store">
                         <div class="form-group">
-                            <textarea name="commenttext" class="form-control" rows="3"></textarea>
+                            <textarea name="commenttext" placeholder="Respond to the thank message here or if you wish to thank the person click on his/her name besides 'by' where you can start a new thank post for this person." class="form-control" rows="3" autofocus></textarea>
                             {{csrf_field()}}
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
@@ -74,7 +77,7 @@
                 @foreach ($CommentsOnPosts as $CommentsOnPost)
                 @if ($CommentsOnPost->post_id ==$ThankedByUser->post_thank_id )
                 <div class="media">
-                    <a class="pull-left" href="#">
+                    <a class="pull-left" href="{{URL::asset('profile/id')}}/{{$CommentsOnPost->id}}">
                         <img class="media-object" src="" alt="{{$CommentsOnPost->comment_name}}">
                     </a>
                     <div class="media-body">

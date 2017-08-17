@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\user_thanks;
 use App\user_thanks_comments;
+use App\UserProfiles;
 class PlatformController extends Controller
 {
     /**
@@ -21,9 +22,21 @@ class PlatformController extends Controller
     public function index()
     {
         //
-        $ThankedBy = user_thanks::where('to_id',\Auth::id())->simplePaginate(2);
+        $profileImageCheck = UserProfiles::where('id',\Auth::id())->get(['image'])->first();
+        
+        $ThankedBy = user_thanks::where('to_id',\Auth::id())->orderBy('created_at','desc')->simplePaginate(2);
         $CommentsOnPosts= user_thanks_comments::all();
-        return view('home',compact('ThankedBy','CommentsOnPosts'));
+        if ($profileImageCheck)
+        {
+        	return view('home',compact('ThankedBy','CommentsOnPosts'))
+        				->with('image',$profileImageCheck->image);
+        }
+        else 
+        {
+        	$profileImageEmpty = new UserProfiles;
+        	return view('home',compact('ThankedBy','CommentsOnPosts'))
+        				->with('image',$profileImageEmpty->image);
+        }
     }
 
     /**
@@ -31,6 +44,32 @@ class PlatformController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+	public function viewProfile($id)
+    {
+    		$userOnId = User::where('id',$id)->get()->first();
+    		
+    		//logic here
+    		$profileImageCheck = UserProfiles::where('id',\Auth::id())->get(['image'])->first();
+        
+        	$ThankedBy = user_thanks::where('to_id',$id)->orderBy('created_at','desc')->simplePaginate(5);
+        	$CommentsOnPosts= user_thanks_comments::all();
+        	if ($profileImageCheck)
+        	{
+        		return view('profile',compact('ThankedBy','CommentsOnPosts','userOnId'))
+        					->with('image',$profileImageCheck->image);
+        	}
+       	 	else 
+        	{
+        		$profileImageEmpty = new UserProfiles;
+        		return view('profile',compact('ThankedBy','CommentsOnPosts','userOnId'))
+        					->with('image',$profileImageEmpty->image);
+        	}
+    
+    		
+    		//ends here
+    		
+    		//return view('profile',compact('userOnId')); 
+    }
     public function create()
     {
         //
