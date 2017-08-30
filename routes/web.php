@@ -39,3 +39,9 @@ Route::post('/postthank','ThankPostController@ThankPost');
 Route::get('/search','SearchController@searchName');
 Route::get('/profile/id/{id}','PlatformController@viewProfile');
 
+Route::get('/profile-edit','PlatformController@editProfile');
+Route::post('/update','PlatformController@update');
+
+Route::post('/profile-insert','PlatformController@create');
+
+Route::get('/thank-someone','PlatformController@thankSomeone');

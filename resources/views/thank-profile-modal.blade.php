@@ -35,13 +35,14 @@
  -->
                     </div>
                 </div>
-                @if (!empty ( $image ) )
+                <!-- 
+@if (!empty ( $image ) )
                 <div class="form-group">
-                	<!-- 
+                	<!~~ 
 <label class="btn btn-default">
    						 Upload a photo of yourself (So the person knows who's thanking) <input name="image" type="file" hidden>
 					</label>
- -->
+ ~~>
 					<p>Note: We have a phpto of yours on the file, that will be used in your thank post!<p>
 				</div>
 				@else
@@ -53,7 +54,15 @@
                                 Please use a horizontal image while our engineers work on a fancy image processor!<p>
 				</div>
 				@endif
+ -->
 				
+				<div class="form-group">
+                	<label class="btn btn-default">
+   						 Upload an optional photo (maybe of yours and the person you are thanking) <input name="image" type="file" hidden>
+					</label>
+<!-- 					<p>Note: You will only need to upload your image once, we'd use the same image for subsequent thank posts.  -->
+<!--                                 Please use a horizontal image while our engineers work on a fancy image processor!<p> -->
+				</div>
                 <div class="form-group">
                     <div>
                         <div class="checkbox login-remember">

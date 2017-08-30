@@ -1,14 +1,29 @@
-<div class="modal signUpContent fade" id="thank-someone" tabindex="-1" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times; </button>
-                <h3 class="modal-title-site text-center"> Write the story - Inspire the world! </h3>
+@extends('layouts.app')
+
+@section('content')
+ <div class="container">
+		<!--Modal code here-->
+		
+		
+		@include('validation-errors')
+		
+		
+		
+		
+
+<div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">            
+            
+            <div class="panel-heading text-center">
+<!--                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times; </button> -->
+               <h3> Write the story - Inspire the world! </h3>
             </div>
             
-            <div class="modal-body">
+            <div class="panel-body">
             
-            	<p>This option is used to thank people who are NOT on the platform. To look for people already on the platfrom, please use the search option.</p>
+            	<p>This option is used to thank people who are NOT on the platform. To look for people already on the platform, please use the search option. </p>
+            	@include('thank-search-form')
                <form method="post" id="loginsubmit" action="/postthank" enctype="multipart/form-data"> 
 					{{csrf_field()}}
                 <div class="form-group reg-username">
@@ -85,7 +100,7 @@
                 </div>
                 </form>
                 
-                @include('validation-errors')
+                
                 <!--userForm-->
               
 
@@ -98,3 +113,14 @@
     <!-- /.modal-dialog -->
 
 </div>
+
+		
+
+
+        <hr>
+
+        <!-- Footer -->
+        @include('footer')
+
+    </div>
+@endsection
