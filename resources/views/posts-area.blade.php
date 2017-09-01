@@ -44,7 +44,21 @@
            
            
         </a>
-        <span class="glyphicon glyphicon-heart"> </span>
+        @if(\Auth::id())
+        <?php $likeData=App\create_addnl_posts_infos::where('id',\Auth::id())->where('post_thank_id', '=',$ThankedByUser->post_thank_id)->get()->first() ?>
+        	<?php $countLikes = App\create_addnl_posts_infos::where('post_thank_id',$ThankedByUser->post_thank_id)->count()?>
+        	@if(count($likeData)>0)
+        		
+        		<span class="glyphicon glyphicon-heart"></span>({{$countLikes}})
+        	@else	
+        		<a href="{{URL::asset('')}}likepost/{{$ThankedByUser->post_thank_id}}"  ><span class="glyphicon glyphicon-heart"> </span></a>({{$countLikes}})
+        	@endif
+        	
+        @else
+        	<?php $countLikes =0 ?>
+        	<a href="{{URL::asset('')}}likepost/{{$ThankedByUser->post_thank_id}}"  ><span class="glyphicon glyphicon-heart"> </span></a>({{$countLikes}})	
+        @endif
+        @include('validation-errors')
     <div id="{{$ThankedByUser->post_thank_id}}" class="collapse in" role="tabpanel" aria-labelledby="headingOne">
         <div class="well">
                     <h4>Leave a Comment:</h4>

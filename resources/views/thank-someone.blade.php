@@ -80,15 +80,15 @@
 <!-- 					<p>Note: You will only need to upload your image once, we'd use the same image for subsequent thank posts.  -->
 <!--                                 Please use a horizontal image while our engineers work on a fancy image processor!<p> -->
 				</div>
+		
                 <div class="form-group">
                     <div>
                         <div class="checkbox login-remember">
                             <label>
-                                <!-- 
-<input name="surprise" id="surprise" value="0" 
+                                <input name="surprise" id="surprise" value="0" 
                                        type="checkbox">
-                                Are you friends with this person? (The person will be asked to confirm in the notification)</label>
- -->
+                                I want to but this person a cup of coffee, I know it costs $5! </br>(Payment information will be taken after you thank your friend. Don't worry, until you pay we won't tell your friend about the coffee. You may change your mind on the next screen.)</label>
+
                                 
                         </div>
                     </div>
@@ -99,19 +99,20 @@
                     </div>
                 </div>
                 </form>
-                
-                
-                <!--userForm-->
-              
+            
 
             </div>
             
+
         </div>
         <!-- /.modal-content -->
+
+
 
     </div>
     <!-- /.modal-dialog -->
 
+	
 </div>
 
 		

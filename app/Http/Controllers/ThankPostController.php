@@ -6,8 +6,10 @@ use Illuminate\Http\Request;
 use App\user_thanks;
 use App\user_thanks_comments;
 use App\Jobs\SendNotificationEmails;
+use App\Jobs\SendLikeEmail;
 use App\User;
 use App\UserProfiles;
+use App\create_addnl_posts_infos;
 use Closure;
 use Image;
 class ThankPostController extends Controller
@@ -29,7 +31,7 @@ class ThankPostController extends Controller
     			'name'=> 'required|max:40',
     			'email' => 'nullable|email',
     			'thank-title'=> 'required|max:100',
-    			'thank-descr'=>'required|max:500',
+    			'thank-descr'=>'required|max:5000',
     			'image'=> 'nullable|image|mimes:jpeg,jpg,png|max:3000'
     			
     			
@@ -332,6 +334,47 @@ class ThankPostController extends Controller
     public function showProfileTopFivePosts()
     {
     
+    	
+    
+    }
+    
+    public function likedPost($postid)
+    {
+    	$user = \Auth::user();
+    	//Already liked check
+    	$likedOrNot = create_addnl_posts_infos::where('post_thank_id',$postid)->where('id',$user->id)->get();
+    	
+    	if (count($likedOrNot)>0)
+    	{
+    		//return ->withErrors(['msg', 'You have liked this story already']);;
+    		return back();
+    	}
+    	else
+    	{
+    		if ($id=$user->id)
+    		{
+    			$likedPostObject = new create_addnl_posts_infos;
+    			$likedPostObject->id = $id;
+    			$likedPostObject->post_thank_id = $postid;
+    			$likedPostObject->heart = 1;
+    			$posturl = 'http://www.thankingli.com/showposts/postid/'.$postid;
+    			$ownerPost = user_thanks::where('post_thank_id',$postid)->get(['from_id'])->first();
+    			$ownerPostUser = user::where('id',$ownerPost->from_id)->get(['name','email'])->first();
+    			if ($likedPostObject->save())
+    			{
+    			//name of person who liked - post url - name of the person owning the post - email of person owning the post
+    			//dispatch(new SendLikeEmail($user->name,$posturl,$ownerPostUser->name,$ownerPostUser->email));
+    				return back();
+    			}
+    		
+    		}
+    		else
+    		{
+    			return back();
+    		}
+    	}
+    	
+    	
     	
     
     }

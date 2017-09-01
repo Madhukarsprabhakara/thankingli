@@ -33,7 +33,7 @@
 				<div class="col-md-6 col-md-offset-3">
 					<a class="btn btn-primary pull-center" href="{{URL::asset('register')}}">Sign up! <i class="fa fa-angle-right"></i></a>
 					or
-					<a class="btn btn-primary pull-center" href="{{URL::asset('login')}}">Sign in! <i class="fa fa-angle-right"></i></a>
+					<a class="btn btn-primary pull-center" href="{{URL::asset('latestposts')}}">Read thank stories<i class="fa fa-angle-right"></i></a>
                 </div>
                 <!-- 
 <div class="links">
