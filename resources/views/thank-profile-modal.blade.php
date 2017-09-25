@@ -19,6 +19,11 @@
                         <input name="email" class="form-control input" size="100" value="{{$userOnId->email}}" readonly="readonly" type="hidden" >
                     </div>
                 </div>
+                <div class="form-group">
+                    <div>
+                        <input name="emailpresent" class="form-control input" size="100" value="1" readonly="readonly" type="hidden" >
+                    </div>
+                </div>
                 <div class="form-group reg-password">
                     <div>
                         <input name="thank-title" class="form-control input" size="100" placeholder="Title for the thank post"

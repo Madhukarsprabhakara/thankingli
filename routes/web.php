@@ -29,6 +29,7 @@ Route::get('/showposts/postid/{postid}','ThankPostController@ShowPostId');
 Route::get('/latestposts','ThankPostController@showTopFivePosts');
 Route::get('/latestposts/id/{id}','ThankPostController@showProfileTopFivePosts');
 Route::get('/likepost/{postid}','ThankPostController@likedPost');
+Route::get('/app-showposts','PlatformController@posts');
 
 Route::post('/create-user','CustomRegistrationController@RegControlWithQueryParam');
 
@@ -49,3 +50,4 @@ Route::get('/thank-someone','PlatformController@thankSomeone');
 //Purchases
 
 Route::post('/purchases','PurchasesController@store');
+Route::get('/stripebuy','PlatformController@returnStripe');

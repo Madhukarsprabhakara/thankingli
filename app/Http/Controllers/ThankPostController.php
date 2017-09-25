@@ -17,7 +17,7 @@ class ThankPostController extends Controller
     //
     public function __construct()
     {
-        $this->middleware('auth')->except(['emailLink','registeredLink','showTopFivePosts']);
+        $this->middleware('auth')->except(['emailLink','registeredLink','showTopFivePosts','ShowPostId']);
         //$this->middleware('auth');
     }
     
@@ -32,13 +32,19 @@ class ThankPostController extends Controller
     			'email' => 'nullable|email',
     			'thank-title'=> 'required|max:100',
     			'thank-descr'=>'required|max:5000',
-    			'image'=> 'nullable|image|mimes:jpeg,jpg,png|max:3000'
+    			'image'=> 'nullable|image|mimes:jpeg,jpg,png|max:3000',
+    			'emailpresent'=>'nullable',
+    			'surprise' => 'nullable'
     			
     			
     			
     		]);
     		
+    		//dd($request->all());
     		$data = $request->all();
+    		$data['surprise']=1;
+    		
+    		
     		$exists=User::where('email', $data['email'])->exists();
     		
     		
@@ -73,64 +79,126 @@ class ThankPostController extends Controller
     		
     			
     			//$exists=User::where('email', $data['email'])->exists();
-    		
-    			if ($exists)
+    			if ($data['emailpresent']==0)
     			{
-    				$toUser= User::where('email', $data['email'])->first();
-    				$newPost->from_id = \Auth::id();
-    				$newPost->from_name = $user->name;
-    				$newPost->to_name = $toUser->name;
-    				$newPost->to_email = $toUser->email;
-    				$newPost->to_id = $toUser->id;
-    			//return 'great';
-    				if ($file = request()->file('image'))
-    				{
-    					$newPost->image = $relativeUrl;
-    				}
-    				// else
-//     				{	
-//     					$relativeUrl = "thankingli-images/thankingli.png";
-//     					$newPost->image = $relativeUrl;	
-//     				}
-    				$newPost->thank_title = $data['thank-title'];
-    				$newPost->thank_description = $data['thank-descr'];
-    		
-    				if($newPost->save())
-    				{
-    					$url="http://localhost/showposts/postid/".$newPost->post_thank_id;
-    					//dd($newPost->id);
-//     					dispatch(new SendNotificationEmails($user,$url,$toUser->name,$newPost->to_email));
-    					return redirect('/thankwall');
     				
-    				}
-    			}
-    			else
-    			{
-    				$newPost->from_id = \Auth::id();
-    				$newPost->from_name = $user->name;
-    				$newPost->to_name = $data['name'];
-    				$newPost->to_email = $data['email'];
+    					$newPost->from_id = \Auth::id();
+    					$newPost->from_name = $user->name;
+    					$newPost->to_name = $data['name'];
+    					$newPost->to_email = $data['email'];
     			//$newPost->to_id = ;
     			//auth()->logout();
-    				if ($file = request()->file('image'))
-    				{
-    					$newPost->image = $relativeUrl;
-    				}
+    					if ($file = request()->file('image'))
+    					{
+    						$newPost->image = $relativeUrl;
+    					}
     				// else
 //     				{	
 //     					$relativeUrl = "thankingli-images/thankingli.png";
 //     					$newPost->image = '';	
 //     				}
-    				$newPost->thank_title = $data['thank-title'];
-    				$newPost->thank_description = $data['thank-descr'];
+    					$newPost->thank_title = $data['thank-title'];
+    					$newPost->thank_description = $data['thank-descr'];
     		
-    				if($newPost->save())
-    				{
-    					$url="http://ec2-54-204-208-43.compute-1.amazonaws.com/emaillink/uid/".$newPost->from_id."/postid/".$newPost->post_thank_id."?redirect-url=/registered/uid/".$newPost->from_id."/postid/".$newPost->post_thank_id;
+    					if($newPost->save())
+    					{
+    						$url="http://ec2-54-204-208-43.compute-1.amazonaws.com/emaillink/uid/".$newPost->from_id."/postid/".$newPost->post_thank_id."?redirect-url=/registered/uid/".$newPost->from_id."/postid/".$newPost->post_thank_id;
     				//dd($newPost->id);
 //     					dispatch(new SendNotificationEmails($user,$url,$data['name'],$data['email']));
-    					return redirect('/thankwall');
+    						if ($data['surprise']==0)
+							{
+								return view('buy-something')
+										->with('to_email',$newPost->to_email)
+										->with('to_name',$newPost->to_name);
+							}
+							else
+							{
+    							return redirect('/thankwall');
+    						}
     				
+    					}
+    			
+    				
+    			}
+    			else
+    			{
+    		
+    				if ($exists)
+    				{
+    					$toUser= User::where('email', $data['email'])->first();
+    					$newPost->from_id = \Auth::id();
+    					$newPost->from_name = $user->name;
+    					$newPost->to_name = $toUser->name;
+    					$newPost->to_email = $toUser->email;
+    					$newPost->to_id = $toUser->id;
+    			//return 'great';
+    					if ($file = request()->file('image'))
+    					{
+    						$newPost->image = $relativeUrl;
+    					}
+    				// else
+//     					{	
+//     					$relativeUrl = "thankingli-images/thankingli.png";
+//     					$newPost->image = $relativeUrl;	
+//     				}
+    					$newPost->thank_title = $data['thank-title'];
+    					$newPost->thank_description = $data['thank-descr'];
+    		
+    					if($newPost->save())
+    					{
+    						$url="http://localhost/showposts/postid/".$newPost->post_thank_id;
+    					//dd($newPost->id);
+//     					dispatch(new SendNotificationEmails($user,$url,$toUser->name,$newPost->to_email));
+							if ($data['surprise']==0)
+							{
+								return view('buy-something')
+										->with('to_email',$newPost->to_email)
+										->with('to_name',$newPost->to_name);
+							}
+							else
+							{
+    							return redirect('/thankwall');
+    						}
+    					}
+    				}
+    				else
+    				{
+    					$newPost->from_id = \Auth::id();
+    					$newPost->from_name = $user->name;
+    					$newPost->to_name = $data['name'];
+    					$newPost->to_email = $data['email'];
+    			//$newPost->to_id = ;
+    			//auth()->logout();
+    					if ($file = request()->file('image'))
+    					{
+    						$newPost->image = $relativeUrl;
+    					}
+    				// else
+//     				{	
+//     					$relativeUrl = "thankingli-images/thankingli.png";
+//     					$newPost->image = '';	
+//     				}
+    					$newPost->thank_title = $data['thank-title'];
+    					$newPost->thank_description = $data['thank-descr'];
+    		
+    					if($newPost->save())
+    					{
+    						$url="http://ec2-54-204-208-43.compute-1.amazonaws.com/emaillink/uid/".$newPost->from_id."/postid/".$newPost->post_thank_id."?redirect-url=/registered/uid/".$newPost->from_id."/postid/".$newPost->post_thank_id;
+    				//dd($newPost->id);
+//     					dispatch(new SendNotificationEmails($user,$url,$data['name'],$data['email']));
+    						if ($data['surprise']==0)
+							{
+								return view('buy-something')
+										->with('to_email',$newPost->to_email)
+										->with('to_name',$newPost->to_name);
+							}
+							else
+							{
+    							return redirect('/thankwall');
+    						}
+    				
+    					}
+    			
     				}
     			
     			}	
@@ -274,13 +342,13 @@ class ThankPostController extends Controller
     	
     	if ($profileImageCheck)
         {
-        	return view('/home',compact('ThankedBy','CommentsOnPosts'))
+        	return view('show-post-id',compact('ThankedBy','CommentsOnPosts'))
         				->with('image',$profileImageCheck->image);
         }
         else 
         {
         	$profileImageEmpty = new UserProfiles;
-        	return view('/home',compact('ThankedBy','CommentsOnPosts'))
+        	return view('show-post-id',compact('ThankedBy','CommentsOnPosts'))
         				->with('image',$profileImageEmpty->image);
         }
     	

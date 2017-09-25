@@ -1,9 +1,9 @@
-@extends('layouts.app')
+@extends('layouts.app_home')
 
 @section('content')
  <div class="container">
 		<!--Modal code here-->
-		@include('thank-someone-modal')
+
 		
 		@include('validation-errors')
 		
@@ -29,7 +29,7 @@
                 <h1 class="page-header">
                     <small>People who thanked you</small>
 <!--                     <a class="btn btn-primary pull-right" href="#" data-toggle="modal" data-target="#thank-someone" data-dismiss="modal">Invite, thank, inspire! <i class="fa fa-angle-right"></i></a> -->
-						<a class="btn btn-primary pull-right" href="{{URL::asset('thank-someone')}}"  data-target="#thank-someone" data-dismiss="modal">Thank, inspire! <i class="fa fa-angle-right"></i></a>
+						<a class="btn btn-primary pull-right" href="{{URL::asset('thank-someone')}}"  >Thank, inspire! <i class="fa fa-angle-right"></i></a>
                 </h1>
                 <ul>
     				 

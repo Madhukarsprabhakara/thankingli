@@ -29,7 +29,7 @@
                 </h4>
                 <p>by <a href="{{URL::asset('profile/id')}}/{{$ThankedByUser->from_id}}">{{$ThankedByUser->from_name}}</a>
                 </p>
-                <p>{{$ThankedByUser->thank_description}}.</p>
+                <p>{!!nl2br(e($ThankedByUser->thank_description))!!}.</p>
                 
                 <a href="#">
                     <img class="img-responsive img-hover" src="{{URL::asset('')}}{{$ThankedByUser->image}}" alt="">
@@ -58,13 +58,14 @@
         	<?php $countLikes =0 ?>
         	<a href="{{URL::asset('')}}likepost/{{$ThankedByUser->post_thank_id}}"  ><span class="glyphicon glyphicon-heart"> </span></a>({{$countLikes}})	
         @endif
+        <a href="{{URL::asset('')}}showposts/postid/{{$ThankedByUser->post_thank_id}}" title="Sharable link for posting on linkedin or facebook" ><span class="glyphicon glyphicon-link"> </span></a>
         @include('validation-errors')
     <div id="{{$ThankedByUser->post_thank_id}}" class="collapse in" role="tabpanel" aria-labelledby="headingOne">
         <div class="well">
                     <h4>Leave a Comment:</h4>
                     <form role="form" method="post" action="{{URL::asset('')}}comments/{{$ThankedByUser->post_thank_id}}/store">
                         <div class="form-group">
-                            <textarea name="commenttext" placeholder="Respond to the thank message here or if you wish to thank the person click on his/her name besides 'by' where you can start a new thank post for this person." class="form-control" rows="3" autofocus></textarea>
+                            <textarea name="commenttext" placeholder="Respond to the thank message here or if you wish to thank the person click on his/her name besides 'by' where you can start a new thank post for this person." class="form-control" rows="3" autofocus>{{old('commenttext')}}</textarea>
                             {{csrf_field()}}
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>

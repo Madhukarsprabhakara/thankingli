@@ -22,34 +22,52 @@
             
             <div class="panel-body">
             
-            	<p>This option is used to thank people who are NOT on the platform. To look for people already on the platform, please use the search option. </p>
+            	<p>Search for people already on the platform </p>
             	@include('thank-search-form')
+            	<p> or </p>
+            	<p>Invite and thank someone using their email</p>	
+            	
                <form method="post" id="loginsubmit" action="/postthank" enctype="multipart/form-data"> 
 					{{csrf_field()}}
+				
                 <div class="form-group reg-username">
                     <div>
-                        <input name="name" class="form-control input" size="40" placeholder="Name of the person you wish to thank"
+                        <input name="name" class="form-control input" value="{{old('name')}}" size="40" placeholder="Name of the person you wish to thank"
                                type="text" required>
                     </div>
                 </div>
                 <div class="form-group reg-email">
                     <div>
-                        <input name="email" class="form-control input" size="100" placeholder="Email of the person you wish to thank" type="email">
+                        <input name="email" class="form-control input" size="100" value="{{old('email')}}" placeholder="Email of the person you wish to thank" type="email">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div>
+                        <div class="checkbox">
+                            <label>
+                            	<input name="emailpresent" id="surprise" value="1" 
+                                       type="hidden">
+                                <input name="emailpresent" id="surprise" value="0" 
+                                       type="checkbox">
+                                Check if there is no email or the thank is for a non-living entity(e.g a tribute to a country, or thanking your dog)</label>
+
+                                
+                        </div>
                     </div>
                 </div>
                 <div class="form-group reg-password">
                     <div>
-                        <input name="thank-title" class="form-control input" size="100" placeholder="Title for the thank post"
+                        <input name="thank-title" class="form-control input" size="100" value="{{old('thank-title')}}" placeholder="Title for the thank story"
                                type="text" required>
                     </div>
                 </div>
                 <div class="form-group">
                 
                     <div>
-                    	<textarea name="thank-descr" class="form-control" rows="5" placeholder="Write the story behind the thank - Inspire the World!" id="comment" required></textarea>
+                    	<textarea name="thank-descr" class="form-control"  rows="5"  placeholder="Write the story behind the thank - Inspire the World!" id="comment" required> {{old('thank-descr')}} </textarea>
                         <!-- 
 <input name="thank-descr" class="form-control input" size="500" placeholder="Write a note about the thanks"
-                               type="text">
+                               type="text" >
  -->
                     </div>
                 </div>
@@ -81,18 +99,27 @@
 <!--                                 Please use a horizontal image while our engineers work on a fancy image processor!<p> -->
 				</div>
 		
-                <div class="form-group">
+		
+		<!--comment this out for diabling e-commerce-->
+                
+                <!-- 
+<div class="form-group">
                     <div>
                         <div class="checkbox login-remember">
                             <label>
+                            	<input name="surprise" id="surprise" value="1" 
+                                       type="hidden">
                                 <input name="surprise" id="surprise" value="0" 
                                        type="checkbox">
-                                I want to but this person a cup of coffee, I know it costs $5! </br>(Payment information will be taken after you thank your friend. Don't worry, until you pay we won't tell your friend about the coffee. You may change your mind on the next screen.)</label>
+                                I want to buy this person a cup of coffee, I know it costs $5! </br>(Payment information will be taken after you thank your friend. Don't worry, until you pay we won't tell your friend about the coffee. You may change your mind on the next screen.)</label>
 
                                 
                         </div>
                     </div>
                 </div>
+ -->
+        
+        <!--Till here -->
                 <div>
                     <div>
                         <input name="submit" class="btn  btn-block btn-lg btn-primary" value="Thank now" type="submit">

@@ -8,14 +8,14 @@ use Laravel\Scout\Searchable;
 class User extends Authenticatable
 {
     use Notifiable;
-	use Searchable;
+	//use Searchable;
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $table = 'users';
-    protected $primaryKey = 'id';
+    //protected $table = 'users';
+    //protected $primaryKey = 'id';
     
     //public $timestamps = false;
     protected $fillable = [

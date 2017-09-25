@@ -17,7 +17,7 @@ class PlatformController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except(['posts']);
     } 
      
     public function index()
@@ -238,6 +238,16 @@ class PlatformController extends Controller
 		
 		return view('thank-someone');
 		
+	}
+	public function returnStripe()
+	{
+		return view('buy-something');
+	}
+	public function posts()
+	{
+		
+		return view('show-post-id');
+	
 	}
     /**
      * Remove the specified resource from storage.
