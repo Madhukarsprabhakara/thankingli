@@ -45,16 +45,25 @@ class SendThankMsgRemindToNS extends Command
     	foreach ($userThanks as $userThank)
     	{
     			
-				$url="http://www.thankingli.com/emaillink/uid/".$userThank->from_id."/postid/".$userThank->post_thank_id."?redirect-url=/registered/uid/".$userThank->from_id."/postid/".$userThank->post_thank_id;
+				if ($userThank->to_email)
+				{
+					echo "$userThank->to_email";
+					echo "\n";
+					$url="http://www.thankingli.com/emaillink/uid/".$userThank->from_id."/postid/".$userThank->post_thank_id."?redirect-url=/registered/uid/".$userThank->from_id."/postid/".$userThank->post_thank_id;
 				//dd($userEmail = user::where('id',$userThank->to_id)->get(['email'])->first());
-				$userEmail = $userThank->to_email;
-				$userTMessage = $userThank->thank_description;
+					$userEmail = $userThank->to_email;
+					$userTMessage = $userThank->thank_description;
 				//echo "$userEmail";
-				$FromUserName = $userThank->from_name;
-				$ToUserName = $userThank->to_name;
-				\Mail::to($userEmail)->send(new RemindThanksMSGToNS($url,$ToUserName,$FromUserName,$userEmail,$userTMessage));
-    		
-    	
+					$FromUserName = $userThank->from_name;
+					$ToUserName = $userThank->to_name;
+					
+					//\Mail::to($userEmail)->send(new RemindThanksMSGToNS($url,$ToUserName,$FromUserName,$userEmail,$userTMessage));
+    			}
+    			// else
+//     			{
+//     				echo "Null";
+//     				echo "\n";
+//     			}
     	}
         
     }
