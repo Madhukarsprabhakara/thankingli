@@ -9,21 +9,30 @@ use App\Jobs\SendNotificationEmails;
 use App\Jobs\SendLikeEmail;
 use App\User;
 use App\UserProfiles;
+use App\purchase_temps;
 use App\create_addnl_posts_infos;
+use App\products;
+use App\reg_url_links;
 use Closure;
 use Image;
+//use Exception;
 class ThankPostController extends Controller
 {
     //
     public function __construct()
     {
-        $this->middleware('auth')->except(['emailLink','registeredLink','showTopFivePosts','ShowPostId']);
+        $this->middleware('auth')->except(['emailLink','registeredLink','ShowPostId']);
         //$this->middleware('auth');
     }
     
     public function ThankPost(Request $request)
     {
+    		
+    		$request->session()->regenerate();
+    		$sessionData = $request->session()->getId();
+    		//\Session::put('payload',$sessionData);
     		$imageLoc = '/Applications/XAMPP/xamppfiles/thankingli/storage/app/thankingli-images/';
+    		$serverUrl='http://localhost/';
     		$newPost = new user_thanks;
     		$user = \Auth::user();
     		$user_id=$user->id;
@@ -32,9 +41,9 @@ class ThankPostController extends Controller
     			'email' => 'nullable|email',
     			'thank-title'=> 'required|max:100',
     			'thank-descr'=>'required|max:5000',
-    			'image'=> 'nullable|image|mimes:jpeg,jpg,png|max:3000',
+    			'image'=> 'nullable|image|mimes:jpeg,jpg,png|max:5000',
     			'emailpresent'=>'nullable',
-    			'surprise' => 'nullable'
+    			'surprise' => 'nullable' //Coffee purchase flag
     			
     			
     			
@@ -42,7 +51,8 @@ class ThankPostController extends Controller
     		
     		//dd($request->all());
     		$data = $request->all();
-    		$data['surprise']=1;
+    		//comment/uncomment the below to either enable/disable e-commerce
+//     		$data['surprise']=1;
     		
     		
     		$exists=User::where('email', $data['email'])->exists();
@@ -51,21 +61,21 @@ class ThankPostController extends Controller
     			
     		
     			//processin and saving the image
-    			if ($file = request()->file('image'))
-    			{
-    				$ext = $file->guessClientExtension();
-    				$unique_name = md5($file);
+    				if ($file = request()->file('image'))
+    				{
+    					$ext = $file->guessClientExtension();
+    					$unique_name = md5($file);
     		
-    				$relativeUrl = $file->storeAs('thankingli-images/' . \Auth::id(),"$unique_name.{$ext}");
-    				$imageFullLoc="$imageLoc"."$user_id/"."$unique_name.{$ext}";
+    					$relativeUrl = $file->storeAs('thankingli-images/' . \Auth::id(),"$unique_name.{$ext}");
+    					$imageFullLoc="$imageLoc"."$user_id/"."$unique_name.{$ext}";
     		//dd($imageFullLoc);
-    				$image=Image::make($imageFullLoc);
+    					//$image=Image::make($imageFullLoc);
     		// resize the image to a width of 300 and constrain aspect ratio (auto height)
 			 // $image->resize(600, null, function ($constraint) {
 //    				  $constraint->aspectRatio();
 //  			})->save($imageFullLoc);
  			//$image->resize(600, 300)->save($imageFullLoc);
- 					$image->fit(400, 400)->save($imageFullLoc);
+ 						//$image->fit(600, 600)->save($imageFullLoc);
 
  			//$image->save($imageFullLoc);
     		//$image->resize(600, 300);
@@ -74,7 +84,10 @@ class ThankPostController extends Controller
 //     				$newProfilePic->id = $user_id;
 //     				$newProfilePic->image = $relativeUrl;
 //     				$newProfilePic->save();
-    			}
+    				}
+    			
+    			
+    			
     			
     		
     			
@@ -102,14 +115,52 @@ class ThankPostController extends Controller
     		
     					if($newPost->save())
     					{
-    						$url="http://ec2-54-204-208-43.compute-1.amazonaws.com/emaillink/uid/".$newPost->from_id."/postid/".$newPost->post_thank_id."?redirect-url=/registered/uid/".$newPost->from_id."/postid/".$newPost->post_thank_id;
+    						$url=$serverUrl.$newPost->from_id."/postid/".$newPost->post_thank_id."?redirect-url=/registered/uid/".$newPost->from_id."/postid/".$newPost->post_thank_id;
+    						$reg_url="/registered/uid/".$newPost->from_id."/postid/".$newPost->post_thank_id;
+    						//dd($newPost->post_thank_id);
+    						try
+    							{
+    								$neRegUrlLinkEntry = new reg_url_links;
+    								$neRegUrlLinkEntry->post_id = $newPost->post_thank_id;
+    								$neRegUrlLinkEntry->session_id = $sessionData;
+    								$neRegUrlLinkEntry-> used = false;
+    								$neRegUrlLinkEntry->url = $reg_url;
+    								$neRegUrlLinkEntry->user_id = \Auth::id();
+    								
+    								$neRegUrlLinkEntry->save();
+       							}
+       							catch (\Exception $e)
+       							{
+       								
+       								return back()->withErrors($e->getMessage());
+       									
+       							}
     				//dd($newPost->id);
 //     					dispatch(new SendNotificationEmails($user,$url,$data['name'],$data['email']));
     						if ($data['surprise']==0)
 							{
-								return view('buy-something')
-										->with('to_email',$newPost->to_email)
-										->with('to_name',$newPost->to_name);
+							
+								//Make the temporary database entry here for the to and from 
+								 $new_temp = new purchase_temps;
+								 
+								 $new_temp->to_id = '';
+								 $new_temp->from_id = \Auth::id();
+								 $new_temp->to_email= $data['email'];
+								 $new_temp->session_id = $sessionData;
+								 $new_temp->post_id = $newPost->post_thank_id;
+								 $new_temp->to_name = $data['name'];
+								 if ($new_temp->save())
+								 {
+										$products=products::all();
+										return view('buy-something1',compact('products'))
+											->with('to_email',$newPost->to_email)
+											->with('to_name',$newPost->to_name);
+								 }
+								 else
+								 {
+								 		\Session::flash('flash_message','Something went wrong, Your purchase was unsuccessful!');
+    									return view('payment-success');
+								 }
 							}
 							else
 							{
@@ -146,14 +197,34 @@ class ThankPostController extends Controller
     		
     					if($newPost->save())
     					{
-    						$url="http://localhost/showposts/postid/".$newPost->post_thank_id;
+    						$url=$serverUrl."showposts/postid/".$newPost->post_thank_id;
     					//dd($newPost->id);
 //     					dispatch(new SendNotificationEmails($user,$url,$toUser->name,$newPost->to_email));
 							if ($data['surprise']==0)
 							{
-								return view('buy-something')
-										->with('to_email',$newPost->to_email)
-										->with('to_name',$newPost->to_name);
+							
+								 		$new_temp = new purchase_temps;
+								 
+								 		$new_temp->to_id = $toUser->id;
+								 		$new_temp->from_id = \Auth::id();
+								 		$new_temp->to_email= $toUser->email;
+								 		$new_temp->session_id = $sessionData;
+								 		$new_temp->post_id = $newPost->post_thank_id;
+								 		$new_temp->to_name = $toUser->name;
+								if ($new_temp->save())
+								 {
+										
+										$products=products::all();
+										//dd($products);
+										return view('buy-something1',compact('products'))
+											->with('to_email',$newPost->to_email)
+											->with('to_name',$newPost->to_name);
+								 }
+								 else
+								 {
+								 		\Session::flash('flash_message','Something went wrong, Your purchase was unsuccessful!');
+    									return view('payment-success');
+								 }
 							}
 							else
 							{
@@ -183,14 +254,52 @@ class ThankPostController extends Controller
     		
     					if($newPost->save())
     					{
-    						$url="http://ec2-54-204-208-43.compute-1.amazonaws.com/emaillink/uid/".$newPost->from_id."/postid/".$newPost->post_thank_id."?redirect-url=/registered/uid/".$newPost->from_id."/postid/".$newPost->post_thank_id;
+    							$url=$serverUrl."emaillink/uid/".$newPost->from_id."/postid/".$newPost->post_thank_id."?redirect-url=/registered/uid/".$newPost->from_id."/postid/".$newPost->post_thank_id;
+    							$reg_url="/registered/uid/".$newPost->from_id."/postid/".$newPost->post_thank_id;
+    							try
+    							{
+    								$neRegUrlLinkEntry = new reg_url_links;
+    								$neRegUrlLinkEntry->post_id = $newPost->post_thank_id;
+    								$neRegUrlLinkEntry->session_id = $sessionData;
+    								$neRegUrlLinkEntry-> used = false;
+    								$neRegUrlLinkEntry->url = $reg_url;;
+    								$neRegUrlLinkEntry->user_id = \Auth::id();
+    								
+    								$neRegUrlLinkEntry->save();
+       							}
+       							catch (\Exception $e)
+       							{
+       								
+       								return back()->withErrors($e->getMessage());
+       									
+       							}
     				//dd($newPost->id);
 //     					dispatch(new SendNotificationEmails($user,$url,$data['name'],$data['email']));
     						if ($data['surprise']==0)
 							{
-								return view('buy-something')
-										->with('to_email',$newPost->to_email)
-										->with('to_name',$newPost->to_name);
+							
+								 		$new_temp = new purchase_temps;
+								 
+								 		//$new_temp->to_id = $toUser->id;
+								 		$new_temp->from_id = \Auth::id();
+								 		$new_temp->to_email= $data['email'];
+								 		$new_temp->session_id = $sessionData;
+								 		$new_temp->post_id = $newPost->post_thank_id;
+								 		$new_temp->to_name = $data['name'];
+								if ($new_temp->save())
+								 {
+										
+										$products=products::all();
+										//dd($products);
+										return view('buy-something1',compact('products'))
+											->with('to_email',$newPost->to_email)
+											->with('to_name',$newPost->to_name);
+								 }
+								 else
+								 {
+								 		\Session::flash('flash_message','Something went wrong, Your purchase was unsuccessful!');
+    									return view('payment-success');
+								 }
 							}
 							else
 							{
@@ -202,6 +311,14 @@ class ThankPostController extends Controller
     				}
     			
     			}	
+    			
+    	
+    	// catch(\Exception $e)
+//     	{
+//     		//echo $e->getMessage();
+//     		// dd('test', $ex->getMessage());
+//      		return back()->withErrors($e->getMessage())->withInput();
+//     	}		
     				
     				
     		
@@ -214,12 +331,26 @@ class ThankPostController extends Controller
     public function emailLink(Request $request,$id,$postid)
     {
     	
-    	$redirectUrl=$request['redirect-url'];
-    	//dd($refererUrl);
+    	
+    	$usedLinkCheck= reg_url_links::where('post_id',$postid)->first();
+    // 	if (\Auth::id())
+//     	{
+//     		if 
+//     		return $this->ShowPostId($postid);
+//     	}
+//     	else 
+    	if($usedLinkCheck->used)
+    	{	
+    		return $this->ShowPostId($postid);
+    	}
+    	else
+    	{
+    		$redirectUrl=$request['redirect-url'];
+    		//dd($refererUrl);
     		//dd($request['redirect-url']);
     		return view('create-user')
     				->with('redirectUrl',$redirectUrl);
-    	
+    	}
     
     
     }
@@ -298,14 +429,19 @@ class ThankPostController extends Controller
         
         if ($profileImageCheck)
         {
-        	return view('your-thank-wall',compact('ThankedBy','CommentsOnPosts'))
-        				->with('image',$profileImageCheck->image);
+        	// return view('your-thank-wall',compact('ThankedBy','CommentsOnPosts'))
+//         				->with('image',$profileImageCheck->image);
+        	return view('you-thanked-1-0',compact('ThankedBy','CommentsOnPosts'))
+        				->with('image',$profileImageCheck->image);			
         }
         else 
         {
         	$profileImageEmpty = new UserProfiles;
-        	return view('your-thank-wall',compact('ThankedBy','CommentsOnPosts'))
-        				->with('image',$profileImageEmpty->image);
+        	// return view('your-thank-wall',compact('ThankedBy','CommentsOnPosts'))
+//         				->with('image',$profileImageEmpty->image);
+        				
+        	return view('you-thanked-1-0',compact('ThankedBy','CommentsOnPosts'))
+        				->with('image',$profileImageEmpty->image);			
         }
         //return view('/home',compact('ThankedBy'));
         //dd($request->server('HTTP_REFERER'));
@@ -338,18 +474,23 @@ class ThankPostController extends Controller
     {
     	$profileImageCheck = UserProfiles::where('id',\Auth::id())->get(['image'])->first();
     	$ThankedBy = user_thanks::where('post_thank_id',$postid)->simplePaginate(1);
-    	$CommentsOnPosts= user_thanks_comments::all();
+    	//$CommentsOnPosts= user_thanks_comments::all();
+    	$CommentsOnPosts= user_thanks_comments::where('post_id',$postid)->orderBy('created_at','desc')->get();
     	
     	if ($profileImageCheck)
         {
-        	return view('show-post-id',compact('ThankedBy','CommentsOnPosts'))
+        	// return view('show-post-id',compact('ThankedBy','CommentsOnPosts'))
+//         				->with('image',$profileImageCheck->image);
+        	return view('single-post-1-0',compact('ThankedBy','CommentsOnPosts'))
         				->with('image',$profileImageCheck->image);
         }
         else 
         {
         	$profileImageEmpty = new UserProfiles;
-        	return view('show-post-id',compact('ThankedBy','CommentsOnPosts'))
-        				->with('image',$profileImageEmpty->image);
+        	// return view('show-post-id',compact('ThankedBy','CommentsOnPosts'))
+//         				->with('image',$profileImageEmpty->image);
+        	return view('single-post-1-0',compact('ThankedBy','CommentsOnPosts'))
+        				->with('image',$profileImageEmpty->image);			
         }
     	
 //     	return view('/home',compact('ThankedBy','CommentsOnPosts'));
@@ -358,21 +499,29 @@ class ThankPostController extends Controller
     
     public function showTopFivePosts()
     {
+    	
     	$profileImageCheck = UserProfiles::where('id',\Auth::id())->get(['image'])->first();	
     	$ThankedBy = user_thanks::orderBy('created_at','desc')->simplePaginate(5);
         $CommentsOnPosts= user_thanks_comments::all();
         
         if ($profileImageCheck)
         {
-        	return view('latest-ten-posts',compact('ThankedBy','CommentsOnPosts'))
+        	// return view('latest-ten-posts',compact('ThankedBy','CommentsOnPosts'))
+//         				->with('image',$profileImageCheck->image);
+        	return view('blog-default-aside-both-1-0',compact('ThankedBy','CommentsOnPosts'))
         				->with('image',$profileImageCheck->image);
         }
         else 
         {
         	$profileImageEmpty = new UserProfiles;
-        	return view('latest-ten-posts',compact('ThankedBy','CommentsOnPosts'))
+        	// return view('latest-ten-posts',compact('ThankedBy','CommentsOnPosts'))
+//         				->with('image',$profileImageEmpty->image);
+        
+        	return view('blog-default-aside-both-1-0',compact('ThankedBy','CommentsOnPosts'))
         				->with('image',$profileImageEmpty->image);
+        
         }
+        
         
 //         return view('latest-ten-posts',compact('ThankedBy','CommentsOnPosts'));
     
@@ -395,6 +544,31 @@ class ThankPostController extends Controller
         	$profileImageEmpty = new UserProfiles;
         	return view('your-thank-profilewall',compact('ThankedBy','CommentsOnPosts','userOnId'))
         				->with('image',$profileImageEmpty->image);
+        }
+    
+    }
+    public function viewTp($id)
+    {
+    	$userOnId = User::where('id',$id)->get()->first();
+    	$profileImageCheck = UserProfiles::where('id',\Auth::id())->get(['image'])->first();
+    	$Thanked = user_thanks::where('from_id',$id)->orderBy('created_at','desc')->simplePaginate(20); 
+        $ThankedBy = user_thanks::where('to_id',$id)->orderBy('created_at','desc')->simplePaginate(20);
+        $CommentsOnPosts= user_thanks_comments::all();
+        
+        if ($profileImageCheck)
+        {
+        	// return view('your-thank-profilewall',compact('ThankedBy','CommentsOnPosts','userOnId','Thanked'))
+//         				->with('image',$profileImageCheck->image);
+        	return view('profile-1-0-tp',compact('ThankedBy','CommentsOnPosts','userOnId','Thanked'))
+        				->with('image',$profileImageCheck->image);			
+        }
+        else 
+        {
+        	$profileImageEmpty = new UserProfiles;
+        	// return view('your-thank-profilewall',compact('ThankedBy','CommentsOnPosts','userOnId','Thanked'))
+//         				->with('image',$profileImageEmpty->image);
+				return view('profile-1-0-tp',compact('ThankedBy','CommentsOnPosts','userOnId','Thanked'))
+         				->with('image',$profileImageEmpty->image);
         }
     
     }
@@ -452,6 +626,11 @@ class ThankPostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function headers()
+    {
+    	return $_SERVER;
+    }
+    
     public function edit($id)
     {
         //

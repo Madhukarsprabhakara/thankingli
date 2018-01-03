@@ -11,7 +11,7 @@ Please click on the link below to respond to the message.
 Click here to respond
 @endcomponent
 
-By responsing to this thank post you'd be encouraging people from spreading the good that happens around us.
+By responding to this thank post you'd be encouraging people from spreading the good that happens around us.
 
 Thankingli is a platform that helps spread the good around us by helping people thank anyone, anything or anyplace!
 Happy Thanking!

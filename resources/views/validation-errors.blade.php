@@ -15,10 +15,3 @@
 	</div>
 @endif
 
-@if (Session::has('flash_message'))
-    <div class="flash-message">
-    <div class="alert alert-success">
-			{{Session::get('flash_message')}}
-    </div>
-    </div>
-@endif

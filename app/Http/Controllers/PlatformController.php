@@ -17,7 +17,7 @@ class PlatformController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth')->except(['posts']);
+        $this->middleware('auth')->except(['posts','homeDesign']);
     } 
      
     public function index()
@@ -29,13 +29,19 @@ class PlatformController extends Controller
         $CommentsOnPosts= user_thanks_comments::all();
         if ($profileImageCheck)
         {
-        	return view('home',compact('ThankedBy','CommentsOnPosts'))
-        				->with('image',$profileImageCheck->image);
+        	// return view('home',compact('ThankedBy','CommentsOnPosts'))
+//         				->with('image',$profileImageCheck->image);
+        	
+        	return view('thanked-you-1-0',compact('ThankedBy','CommentsOnPosts'))
+        				->with('image',$profileImageCheck->image);			
         }
         else 
         {
         	$profileImageEmpty = new UserProfiles;
-        	return view('home',compact('ThankedBy','CommentsOnPosts'))
+        	// return view('home',compact('ThankedBy','CommentsOnPosts'))
+//         				->with('image',$profileImageEmpty->image);
+
+			return view('you-thanked-1-0',compact('ThankedBy','CommentsOnPosts'))
         				->with('image',$profileImageEmpty->image);
         }
     }
@@ -70,6 +76,90 @@ class PlatformController extends Controller
     		//ends here
     		
     		//return view('profile',compact('userOnId')); 
+    }
+    public function viewPt($id)
+    {
+    		$userOnId = User::where('id',$id)->get()->first();
+    		
+    		//logic here
+    		$profileImageCheck = UserProfiles::where('id',\Auth::id())->get(['image'])->first();
+        	$Thanked = user_thanks::where('from_id',$id)->orderBy('created_at','desc')->simplePaginate(20); 
+        	$ThankedBy = user_thanks::where('to_id',$id)->orderBy('created_at','desc')->simplePaginate(20);
+        	$CommentsOnPosts= user_thanks_comments::all();
+        	if ($profileImageCheck)
+        	{
+        		// return view('profile',compact('ThankedBy','CommentsOnPosts','userOnId'))
+//         					->with('image',$profileImageCheck->image);
+        		return view('profile-1-0-pt',compact('ThankedBy','CommentsOnPosts','userOnId','Thanked'))
+        					->with('image',$profileImageCheck->image);			
+        	}
+       	 	else 
+        	{
+        		$profileImageEmpty = new UserProfiles;
+        		// return view('profile',compact('ThankedBy','CommentsOnPosts','userOnId'))
+//         					->with('image',$profileImageEmpty->image);
+        		return view('profile-1-0-pt',compact('ThankedBy','CommentsOnPosts','userOnId','Thanked'))
+        					->with('image',$profileImageEmpty->image);			
+        	}
+    
+    		
+    		//ends here
+    		
+    		//return view('profile',compact('userOnId')); 
+    }
+    
+    public function viewProfileNew($id)
+    {
+    		$userOnId = User::where('id',$id)->get()->first();
+    		
+    		//logic here
+    		$profileImageCheck = UserProfiles::where('id',\Auth::id())->get(['image'])->first();
+			$Thanked = user_thanks::where('from_id',$id)->orderBy('created_at','desc')->simplePaginate(20);        
+        	$ThankedBy = user_thanks::where('to_id',$id)->orderBy('created_at','desc')->simplePaginate(20);
+        	$CommentsOnPosts= user_thanks_comments::all();
+        	if ($profileImageCheck)
+        	{
+        		return view('profile-1-0',compact('ThankedBy','CommentsOnPosts','userOnId','Thanked'))
+        					->with('image',$profileImageCheck->image);
+        	}
+       	 	else 
+        	{
+        		$profileImageEmpty = new UserProfiles;
+        		return view('profile-1-0',compact('ThankedBy','CommentsOnPosts','userOnId','Thanked'))
+        					->with('image',$profileImageEmpty->image);
+        	}
+    
+    		
+    		//ends here
+    		
+    		//return view('profile',compact('userOnId')); 
+    }
+    public function thankId($id)
+    {
+    	
+    		$userOnId = User::where('id',$id)->get()->first();
+    		
+    		//logic here
+    		$profileImageCheck = UserProfiles::where('id',\Auth::id())->get(['image'])->first();
+        
+        	$ThankedBy = user_thanks::where('to_id',$id)->orderBy('created_at','desc')->simplePaginate(5);
+        	$CommentsOnPosts= user_thanks_comments::all();
+        	if ($profileImageCheck)
+        	{
+        		// return view('thank-profile',compact('ThankedBy','CommentsOnPosts','userOnId'))
+//         					->with('image',$profileImageCheck->image);
+				return view('thank-profile-1-0',compact('ThankedBy','CommentsOnPosts','userOnId'))
+         					->with('image',$profileImageCheck->image);
+        	}
+       	 	else 
+        	{
+        		$profileImageEmpty = new UserProfiles;
+        		// return view('thank-profile',compact('ThankedBy','CommentsOnPosts','userOnId'))
+//         					->with('image',$profileImageEmpty->image);
+        		return view('thank-profile-1-0',compact('ThankedBy','CommentsOnPosts','userOnId'))
+        					->with('image',$profileImageEmpty->image);			
+        	}
+    
     }
     public function create(Request $request)
     {
@@ -239,6 +329,12 @@ class PlatformController extends Controller
 		return view('thank-someone');
 		
 	}
+	public function thankSomeoneNew()
+	{
+		
+		return view('thank-someone-1-0');
+		
+	}
 	public function returnStripe()
 	{
 		return view('buy-something');
@@ -249,12 +345,37 @@ class PlatformController extends Controller
 		return view('show-post-id');
 	
 	}
+	public function homeDesign()
+	{
+		$profileImageCheck = UserProfiles::where('id',\Auth::id())->get(['image'])->first();	
+    	$ThankedBy = user_thanks::orderBy('created_at','desc')->whereNotNull('image')->simplePaginate(3);
+        $CommentsOnPosts= user_thanks_comments::all();
+        
+        if ($profileImageCheck)
+        {
+        	return view('index-fullscreen-youtube',compact('ThankedBy','CommentsOnPosts'))
+        				->with('image',$profileImageCheck->image);
+        }
+        else 
+        {
+        	$profileImageEmpty = new UserProfiles;
+        	return view('index-fullscreen-youtube',compact('ThankedBy','CommentsOnPosts'))
+        				->with('image',$profileImageEmpty->image);
+        }
+		//return view('index-fullscreen-youtube');
+	}
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function firstHund()
+    {
+    	
+    	return view('firsthund');	
+    	
+    } 
     public function destroy($id)
     {
         //

@@ -5,17 +5,19 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Scout\Searchable;
+use App\Roles;
 class User extends Authenticatable
 {
     use Notifiable;
-	//use Searchable;
+	use Searchable;
+	
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    //protected $table = 'users';
-    //protected $primaryKey = 'id';
+    protected $table = 'users';
+    protected $primaryKey = 'id';
     
     //public $timestamps = false;
     protected $fillable = [
@@ -30,4 +32,11 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+    
+    public function roles()
+    {
+        return $this
+            ->belongsToMany('App\Role')
+            ->withTimestamps();
+    }
 }

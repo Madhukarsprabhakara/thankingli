@@ -28,7 +28,7 @@
             <div class="col-lg-12">
                 <h1 class="page-header">
                     <small>{{$userOnId->name}}</small>
-                    <a class="btn btn-primary pull-right" href="#" data-toggle="modal" data-target="#thank-profile" data-dismiss="modal">Thank {{$userOnId->name}}! <i class="fa fa-angle-right"></i></a>
+                    <a class="btn btn-primary pull-right" href="{{URL::asset('thank')}}/{{$userOnId->id}}" >Thank {{$userOnId->name}}! <i class="fa fa-angle-right"></i></a>
                 </h1>
                 <ul>
     				 

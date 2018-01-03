@@ -9,6 +9,7 @@ use App\Jobs\SendCommentNotificationEmails;
 class PostCommentsController extends Controller
 {
     //
+    
     public function store(Request $request,$postid)
     {
     	if($user=\Auth::user())
@@ -46,7 +47,7 @@ class PostCommentsController extends Controller
     	else
     	{
     	
-    		echo "You must be logged in to comment";
+    		return back()->withErrors('You must be logged in to comment');
     	
     	}
     

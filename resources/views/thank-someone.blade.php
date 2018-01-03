@@ -102,8 +102,7 @@
 		
 		<!--comment this out for diabling e-commerce-->
                 
-                <!-- 
-<div class="form-group">
+                <div class="form-group">
                     <div>
                         <div class="checkbox login-remember">
                             <label>
@@ -111,13 +110,13 @@
                                        type="hidden">
                                 <input name="surprise" id="surprise" value="0" 
                                        type="checkbox">
-                                I want to buy this person a cup of coffee, I know it costs $5! </br>(Payment information will be taken after you thank your friend. Don't worry, until you pay we won't tell your friend about the coffee. You may change your mind on the next screen.)</label>
+                                I want to buy this person a cup of coffee, I know it costs $3.5! </br>(Payment information will be taken after you thank your friend. Don't worry, until you pay we won't tell your friend about the coffee. You may change your mind on the next screen.)</label>
 
                                 
                         </div>
                     </div>
                 </div>
- -->
+
         
         <!--Till here -->
                 <div>

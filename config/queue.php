@@ -50,11 +50,11 @@ return [
 
         'sqs' => [
             'driver' => 'sqs',
-            'key' => 'AKIAJVUE6HA3KVGGIW3Q',
-            'secret' => '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',
-            'prefix' => 'https://sqs.us-east-1.amazonaws.com/040948126119',
-            'queue' => 'thankingli',
-            'region' => 'us-east-1',
+            'key' => env('AWS_SQS_KEY'),
+            'secret' => env('AWS_SQS_SECRET'),
+            'prefix' => env('AWS_SQS_URL'),
+            'queue' => env('AWS_SQS_NAME'),
+            'region' => env('AWS_SQS_REGION'),
         ],
 
         'redis' => [

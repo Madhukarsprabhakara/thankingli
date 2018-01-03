@@ -9,7 +9,7 @@ Hello {{$name}},
 Click here to respond
 @endcomponent
 
-thankingli is a platform that helps people thank and appreciate the good done by people around us. Happy thanking!
+Thankingli is a platform that helps people thank and appreciate the good done by people around us. Happy thanking!
 
 Cheers,<br>
 {{ config('app.name') }}

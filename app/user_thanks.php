@@ -14,8 +14,8 @@ class user_thanks extends Model
      *
      * @var array
      */
-   // protected $table = 'user_thanks';
-   // protected $primaryKey = 'post_thank_id';
+    protected $table = 'user_thanks';
+    protected $primaryKey = 'post_thank_id';
     
     
     //public $timestamps = false;
