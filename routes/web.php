@@ -77,7 +77,8 @@ Route::get('/visionaries','PlatformController@visionaries');
 //private thanks routes
 
 Route::get('/private','PlatformController@showPrivate');
-Route::get('/private/show','PlatformController@showPrivatePost');
+Route::get('/from/{id}','PlatformController@showPrivateFromPost');
+Route::get('/to/{id}','PlatformController@showPrivateToPost');
 
 //Business routes
 

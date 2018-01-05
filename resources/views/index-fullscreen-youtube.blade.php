@@ -243,6 +243,18 @@
                                 					<input name="emailpresent" id="surprise" value="0" type="checkbox">
 													<i></i> Check if there is no email or the thank is for a non-living entity(e.g a tribute to a country, or thanking your dog)
 											</label>
+											<label>
+											
+											<select name="privacy" class="form-control select2">
+												
+<!-- 												<option value="">Select to make the message Public or private</option> -->
+												<option value="0">Public</option>
+												<option value="1">Private</option>
+<!-- 												<option value="3">option 3</option> -->
+												
+											</select>
+											<i></i>Use the dropdown to make the "Thanks" Private
+											</label>
 										</div>
 									</div>
 

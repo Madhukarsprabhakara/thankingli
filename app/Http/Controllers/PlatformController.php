@@ -8,6 +8,7 @@ use App\user_thanks;
 use App\user_thanks_comments;
 use App\UserProfiles;
 use Image;
+use App\reg_url_links;
 class PlatformController extends Controller
 {
     /**
@@ -25,7 +26,7 @@ class PlatformController extends Controller
         //
         $profileImageCheck = UserProfiles::where('id',\Auth::id())->get(['image'])->first();
         
-        $ThankedBy = user_thanks::where('to_id',\Auth::id())->orderBy('created_at','desc')->simplePaginate(2);
+        $ThankedBy = user_thanks::where('to_id',\Auth::id())->where('private',0)->orderBy('created_at','desc')->simplePaginate(2);
         $CommentsOnPosts= user_thanks_comments::all();
         if ($profileImageCheck)
         {
@@ -41,7 +42,7 @@ class PlatformController extends Controller
         	// return view('home',compact('ThankedBy','CommentsOnPosts'))
 //         				->with('image',$profileImageEmpty->image);
 
-			return view('you-thanked-1-0',compact('ThankedBy','CommentsOnPosts'))
+			return view('thanked-you-1-0',compact('ThankedBy','CommentsOnPosts'))
         				->with('image',$profileImageEmpty->image);
         }
     }
@@ -114,8 +115,8 @@ class PlatformController extends Controller
     		
     		//logic here
     		$profileImageCheck = UserProfiles::where('id',\Auth::id())->get(['image'])->first();
-			$Thanked = user_thanks::where('from_id',$id)->orderBy('created_at','desc')->simplePaginate(20);        
-        	$ThankedBy = user_thanks::where('to_id',$id)->orderBy('created_at','desc')->simplePaginate(20);
+			$Thanked = user_thanks::where('from_id',$id)->where('private',0)->orderBy('created_at','desc')->simplePaginate(20);        
+        	$ThankedBy = user_thanks::where('to_id',$id)->where('private',0)->orderBy('created_at','desc')->simplePaginate(20);
         	$CommentsOnPosts= user_thanks_comments::all();
         	if ($profileImageCheck)
         	{
@@ -133,6 +134,29 @@ class PlatformController extends Controller
     		//ends here
     		
     		//return view('profile',compact('userOnId')); 
+    }
+    public function showPrivate()
+    {
+    		$id=\Auth::id();
+    		$userOnId = User::where('id',\Auth::id())->get()->first();
+    		
+    		//logic here
+    		$profileImageCheck = UserProfiles::where('id',\Auth::id())->get(['image'])->first();
+			$Thanked = user_thanks::where('from_id',$id)->where('private',1)->orderBy('created_at','desc')->simplePaginate(20);        
+        	$ThankedBy = user_thanks::where('to_id',$id)->where('private',1)->orderBy('created_at','desc')->simplePaginate(20);
+        	$CommentsOnPosts= user_thanks_comments::all();
+        	if ($profileImageCheck)
+        	{
+        		return view('private-messages',compact('ThankedBy','CommentsOnPosts','userOnId','Thanked'))
+        					->with('image',$profileImageCheck->image);
+        	}
+       	 	else 
+        	{
+        		$profileImageEmpty = new UserProfiles;
+        		return view('private-messages',compact('ThankedBy','CommentsOnPosts','userOnId','Thanked'))
+        					->with('image',$profileImageEmpty->image);
+        	}
+    
     }
     public function thankId($id)
     {
@@ -348,7 +372,7 @@ class PlatformController extends Controller
 	public function homeDesign()
 	{
 		$profileImageCheck = UserProfiles::where('id',\Auth::id())->get(['image'])->first();	
-    	$ThankedBy = user_thanks::orderBy('created_at','desc')->whereNotNull('image')->simplePaginate(3);
+    	$ThankedBy = user_thanks::orderBy('created_at','desc')->whereNotNull('image')->where('private',0)->simplePaginate(3);
         $CommentsOnPosts= user_thanks_comments::all();
         
         if ($profileImageCheck)
@@ -379,5 +403,60 @@ class PlatformController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function showPrivateFromPost($postid)
+    {
+    	$loggedInId=\Auth::id();
+    	$profileImageCheck = UserProfiles::where('id',\Auth::id())->get(['image'])->first();
+    	$ThankedBy = user_thanks::where('post_thank_id',$postid)->where('private',1)->where('from_id',$loggedInId)->simplePaginate(1);
+    	//$CommentsOnPosts= user_thanks_comments::all();
+    	$CommentsOnPosts= user_thanks_comments::where('post_id',$postid)->orderBy('created_at','desc')->get();
+    	
+    	if ($profileImageCheck)
+        {
+        	// return view('show-post-id',compact('ThankedBy','CommentsOnPosts'))
+//         				->with('image',$profileImageCheck->image);
+        	return view('privatesingle',compact('ThankedBy','CommentsOnPosts'))
+        				->with('image',$profileImageCheck->image);
+        }
+        else 
+        {
+        	$profileImageEmpty = new UserProfiles;
+        	// return view('show-post-id',compact('ThankedBy','CommentsOnPosts'))
+//         				->with('image',$profileImageEmpty->image);
+        	return view('privatesingle',compact('ThankedBy','CommentsOnPosts'))
+        				->with('image',$profileImageEmpty->image);			
+        }
+    	
+//     	return view('/home',compact('ThankedBy','CommentsOnPosts'));
+    
+    }
+    public function showPrivateToPost($postid)
+    {
+    	$loggedInId=\Auth::id();
+    	$profileImageCheck = UserProfiles::where('id',\Auth::id())->get(['image'])->first();
+    	$ThankedBy = user_thanks::where('post_thank_id',$postid)->where('private',1)->where('to_id',$loggedInId)->simplePaginate(1);
+    	//$CommentsOnPosts= user_thanks_comments::all();
+    	$CommentsOnPosts= user_thanks_comments::where('post_id',$postid)->orderBy('created_at','desc')->get();
+    	$linkExistsUsed=reg_url_links::where('post_id',$postid)->get()->first();
+    	if ($profileImageCheck)
+        {
+        	// return view('show-post-id',compact('ThankedBy','CommentsOnPosts'))
+//         				->with('image',$profileImageCheck->image);
+			
+        	return view('privatesingle',compact('ThankedBy','CommentsOnPosts'))
+        				->with('image',$profileImageCheck->image);
+        }
+        else 
+        {
+        	$profileImageEmpty = new UserProfiles;
+        	// return view('show-post-id',compact('ThankedBy','CommentsOnPosts'))
+//         				->with('image',$profileImageEmpty->image);
+        	return view('privatesingle',compact('ThankedBy','CommentsOnPosts'))
+        				->with('image',$profileImageEmpty->image);			
+        }
+    	
+//     	return view('/home',compact('ThankedBy','CommentsOnPosts'));
+    
     }
 }

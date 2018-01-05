@@ -204,7 +204,21 @@
 											<textarea name="thank-descr" rows="10" class="form-control"  placeholder="Write the story behind the thank - Inspire the World!" id="comment" data-lang="en" required>{{old('thank-descr')}}</textarea>
 										</div>
 									</div>
-
+<!-- 									<div class="col-md-12 col-sm-12"> -->
+									
+									<label>
+											<i></i>Use the dropdown to make the "Thanks" Private
+											<select name="privacy" class="form-control select2">
+												
+<!-- 												<option value="">Select to make the message Public or private</option> -->
+												<option value="0">Public</option>
+												<option value="1">Private</option>
+<!-- 												<option value="3">option 3</option> -->
+												
+											</select>
+											
+											</label>
+<!-- 											</div> -->
 									<div class="row">
 										<div class="col-md-12">
 											<label>
@@ -239,6 +253,7 @@
                                 					<input name="surprise" id="surprise" value="0" type="checkbox">
 													<i></i> Yes </br>(Payment information will be taken after you thank your friend. Don't worry, until you pay we won't tell your friend about the coffee. You may change your mind on the next screen.)
 											</label>
+											
 										</div>
 									</div>
 

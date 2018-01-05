@@ -20,7 +20,7 @@ class CoffeeCodeJob implements ShouldQueue
      *
      * @return void
      */
-     public $sessionData;
+     public $sessionData, $productId;
     public function __construct($sessionData,$productId)
     {
         //
@@ -56,6 +56,11 @@ class CoffeeCodeJob implements ShouldQueue
         	$purchaseCodeDB->purchase_code = $rand;
         	if ($purchaseTempI->to_id) {
         		$purchaseCodeDB->to_id=$purchaseTempI->to_id;
+        		$exists=true;
+        	}
+        	else
+        	{
+        		$exists=false;
         	}
        		$purchaseCodeDB->session_id=$purchaseTempI->session_id;
         	$purchaseCodeDB->from_id=$purchaseTempI->from_id;
@@ -67,7 +72,7 @@ class CoffeeCodeJob implements ShouldQueue
         	if($purchaseCodeDB->save())
         	{
         		purchase_temps::where('session_id', $this->sessionData)->delete();
-        		\Mail::to($purchaseTempI->to_email)->send(new SendCoffeeNotification($purchaseTempI->to_name,$fromUser->name, $rand, $purchaseTempI->post_id ));
+        		\Mail::to($purchaseTempI->to_email)->send(new SendCoffeeNotification($purchaseTempI->to_name,$fromUser->name, $rand, $purchaseTempI->post_id,$exists,$purchaseTempI->from_id ));
         	}
         //delete the temps entry
        }

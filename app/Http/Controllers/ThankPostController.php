@@ -43,8 +43,8 @@ class ThankPostController extends Controller
     			'thank-descr'=>'required|max:5000',
     			'image'=> 'nullable|image|mimes:jpeg,jpg,png|max:5000',
     			'emailpresent'=>'nullable',
-    			'surprise' => 'nullable' //Coffee purchase flag
-    			
+    			'surprise' => 'nullable', //Coffee purchase flag
+    			'privacy' => 'required|boolean'
     			
     			
     		]);
@@ -112,6 +112,7 @@ class ThankPostController extends Controller
 //     				}
     					$newPost->thank_title = $data['thank-title'];
     					$newPost->thank_description = $data['thank-descr'];
+    					$newPost->private = $data['privacy'];
     		
     					if($newPost->save())
     					{
@@ -136,7 +137,7 @@ class ThankPostController extends Controller
        									
        							}
     				//dd($newPost->id);
-//     					dispatch(new SendNotificationEmails($user,$url,$data['name'],$data['email']));
+     					dispatch(new SendNotificationEmails($user,$url,$data['name'],$data['email']));
     						if ($data['surprise']==0)
 							{
 							
@@ -194,12 +195,20 @@ class ThankPostController extends Controller
 //     				}
     					$newPost->thank_title = $data['thank-title'];
     					$newPost->thank_description = $data['thank-descr'];
+    					$newPost->private = $data['privacy'];
     		
     					if($newPost->save())
     					{
-    						$url=$serverUrl."showposts/postid/".$newPost->post_thank_id;
+    						if ($data['privacy'])
+    						{
+    							$url=$serverUrl."to/".$newPost->post_thank_id;
+    						}
+    						else
+    						{
+    							$url=$serverUrl."showposts/postid/".$newPost->post_thank_id;
+    						}
     					//dd($newPost->id);
-//     					dispatch(new SendNotificationEmails($user,$url,$toUser->name,$newPost->to_email));
+     					dispatch(new SendNotificationEmails($user,$url,$toUser->name,$newPost->to_email));
 							if ($data['surprise']==0)
 							{
 							
@@ -251,11 +260,13 @@ class ThankPostController extends Controller
 //     				}
     					$newPost->thank_title = $data['thank-title'];
     					$newPost->thank_description = $data['thank-descr'];
-    		
+    					$newPost->private = $data['privacy'];
     					if($newPost->save())
     					{
-    							$url=$serverUrl."emaillink/uid/".$newPost->from_id."/postid/".$newPost->post_thank_id."?redirect-url=/registered/uid/".$newPost->from_id."/postid/".$newPost->post_thank_id;
-    							$reg_url="/registered/uid/".$newPost->from_id."/postid/".$newPost->post_thank_id;
+    					
+    								$url=$serverUrl."emaillink/uid/".$newPost->from_id."/postid/".$newPost->post_thank_id."?redirect-url=/registered/uid/".$newPost->from_id."/postid/".$newPost->post_thank_id;
+    								$reg_url="/registered/uid/".$newPost->from_id."/postid/".$newPost->post_thank_id;
+    							
     							try
     							{
     								$neRegUrlLinkEntry = new reg_url_links;
@@ -274,7 +285,7 @@ class ThankPostController extends Controller
        									
        							}
     				//dd($newPost->id);
-//     					dispatch(new SendNotificationEmails($user,$url,$data['name'],$data['email']));
+     					dispatch(new SendNotificationEmails($user,$url,$data['name'],$data['email']));
     						if ($data['surprise']==0)
 							{
 							
@@ -341,6 +352,21 @@ class ThankPostController extends Controller
 //     	else 
     	if($usedLinkCheck->used)
     	{	
+    		$privacy=user_thanks::where('from_id', $id)
+          	->where('post_thank_id',$postid )
+          	->get(['private'])->first();
+          	
+          	if(!$privacy->private)
+    		{
+    		
+    				return redirect('/home');
+    			
+    		}
+    		else
+    		{
+    				return redirect('/to/'.$postid);	
+    		}
+          	
     		return $this->ShowPostId($postid);
     	}
     	else
@@ -359,18 +385,28 @@ class ThankPostController extends Controller
     
     	if ($user=\Auth::user())
     	{
+    		
     		$status=user_thanks::where('from_id', $id)
           	->where('post_thank_id',$postid )
           	->update(['to_id' => $user->id]);
+          	//Get the privacy flag to redirect appropriately
+          	$privacy=user_thanks::where('from_id', $id)
+          	->where('post_thank_id',$postid )
+          	->get(['private'])->first();
     	
     	
     	
-    			if($status)
+    			if($status && !$privacy->private)
     			{
     		
     					return redirect('/home');
     			
     		
+    			}
+    			else if($status && $privacy->private)
+    			{
+    				return redirect('/to/'.$postid);
+    			
     			}
     			else
     			{
@@ -424,7 +460,7 @@ class ThankPostController extends Controller
     {
         //
         $profileImageCheck = UserProfiles::where('id',\Auth::id())->get(['image'])->first();
-        $ThankedBy = user_thanks::where('from_id',\Auth::id())->orderBy('created_at','desc')->simplePaginate(5);
+        $ThankedBy = user_thanks::where('from_id',\Auth::id())->where('private',0)->orderBy('created_at','desc')->simplePaginate(5);
         $CommentsOnPosts= user_thanks_comments::all();
         
         if ($profileImageCheck)
@@ -452,7 +488,7 @@ class ThankPostController extends Controller
 	public function showThankedYou($id)
     {
     	$profileImageCheck = UserProfiles::where('id',\Auth::id())->get(['image'])->first();
-    	$ThankedBy = user_thanks::where('to_id',\Auth::id())->orderBy('created_at','desc')->simplePaginate(5);
+    	$ThankedBy = user_thanks::where('to_id',\Auth::id())->where('private',0)->orderBy('created_at','desc')->simplePaginate(5);
         $CommentsOnPosts= user_thanks_comments::all();
         
         if ($profileImageCheck)
@@ -473,7 +509,7 @@ class ThankPostController extends Controller
     public function ShowPostId($postid)
     {
     	$profileImageCheck = UserProfiles::where('id',\Auth::id())->get(['image'])->first();
-    	$ThankedBy = user_thanks::where('post_thank_id',$postid)->simplePaginate(1);
+    	$ThankedBy = user_thanks::where('post_thank_id',$postid)->where('private',0)->simplePaginate(1);
     	//$CommentsOnPosts= user_thanks_comments::all();
     	$CommentsOnPosts= user_thanks_comments::where('post_id',$postid)->orderBy('created_at','desc')->get();
     	
@@ -501,7 +537,7 @@ class ThankPostController extends Controller
     {
     	
     	$profileImageCheck = UserProfiles::where('id',\Auth::id())->get(['image'])->first();	
-    	$ThankedBy = user_thanks::orderBy('created_at','desc')->simplePaginate(5);
+    	$ThankedBy = user_thanks::where('private',0)->orderBy('created_at','desc')->simplePaginate(5);
         $CommentsOnPosts= user_thanks_comments::all();
         
         if ($profileImageCheck)

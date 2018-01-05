@@ -147,8 +147,8 @@
 							<!-- SIDE NAV -->
 							<ul class="side-nav list-group mb-60" id="sidebar-nav">
 								<li class="list-group-item active" ><a href="{{URL::asset('')}}profile-1-0/{{$userOnId->id}}"><i class="fa fa-eye" ></i> Profile</a></li>
-								<li class="list-group-item"><a href="{{URL::asset('')}}profile-1-0/id/{{$userOnId->id}}"> People who thanked {{$userOnId->name}}</a></li>
-								<li class="list-group-item"><a href="{{URL::asset('')}}thankwall-1-0/id/{{$userOnId->id}}"> People {{$userOnId->name}} thanked </a></li>
+<!-- 								<li class="list-group-item"><a href="{{URL::asset('')}}profile-1-0/id/{{$userOnId->id}}"> People who thanked {{$userOnId->name}}</a></li> -->
+<!-- 								<li class="list-group-item"><a href="{{URL::asset('')}}thankwall-1-0/id/{{$userOnId->id}}"> People {{$userOnId->name}} thanked </a></li> -->
 								<li class="list-group-item"><a href="/thankfeed"><i class="fa fa-home"></i> Home</a></li>
 								<!-- 
 <li class="list-group-item"><a href="page-profile-history.html"><i class="fa fa-history"></i> HISTORY</a></li>
@@ -187,10 +187,7 @@
 						<!-- RIGHT -->
 						<div class="col-lg-9 col-md-9 col-sm-8">
 						<div class="push-md-4 col-lg-4 col-md-4 col-sm-8">
-							<a href="{{URL::asset('')}}thank/{{$userOnId->id}}" class="btn btn-blue btn-xlg">
-<!-- 								<i class="et-megaphone"></i> -->
-								<span>Thank {{$userOnId->name}}</span>
-							</a>
+							<a class="btn btn-blue " href="{{asset('thank-someone-1-0')}}">Thank someone!</a>
 						</div>
 							<br><br>
 							<!-- FLIP BOX -->
@@ -207,15 +204,15 @@
 
 										<div class="box-inner">
 											<h3>
-												<a class="float-right fs-11 text-warning" href="{{URL::asset('')}}profile-1-0/id/{{$userOnId->id}}">VIEW ALL</a>
-												People who thanked {{$userOnId->name}}
+<!-- 												<a class="float-right fs-11 text-warning" href="{{URL::asset('')}}profile-1-0/id/{{$userOnId->id}}">VIEW ALL</a> -->
+												People who thanked you in private
 											</h3>
 											<div class="h-250 slimscroll" data-always-visible="true" data-size="5px" data-position="right" data-opacity="0.4" disable-body-scroll="true">
 											@foreach ($ThankedBy as $ThankedByUser)
 												<div class="clearfix mb-10"><!-- post item -->
 													<img class="thumbnail float-left" src="demo_files/images/people/300x300/b-min.jpg" width="60" height="60" alt="" />
-													<h4 class="fs-13 m-0 b-0 p-0"><a href="{{URL::asset('')}}showposts/postid/{{$ThankedByUser->post_thank_id}}">Thank you {{$ThankedByUser->to_name}}</a></h4>
-													<h3 class="fs-13 m-0 b-0 p-0"><a style="color:#1566A3;" href="{{URL::asset('')}}showposts/postid/{{$ThankedByUser->post_thank_id}}">{{$ThankedByUser->thank_title}}</a></h3>
+													<h4 class="fs-13 m-0 b-0 p-0"><a href="{{URL::asset('')}}to/{{$ThankedByUser->post_thank_id}}">Thank you {{$ThankedByUser->to_name}}</a></h4>
+													<h3 class="fs-13 m-0 b-0 p-0"><a style="color:#1566A3;" href="{{URL::asset('')}}to/{{$ThankedByUser->post_thank_id}}">{{$ThankedByUser->thank_title}}</a></h3>
 													<span class="fs-11 text-muted">{{$ThankedByUser->from_name}}, {{Carbon\Carbon::parse($ThankedByUser->created_at)->format('d M, Y')}}</span> 
 												</div><!-- /post item -->
 											@endforeach
@@ -234,15 +231,15 @@
 
 										<div class="box-inner">
 											<h3>
-												<a class="float-right fs-11 text-warning" href="{{URL::asset('')}}thankwall-1-0/id/{{$userOnId->id}}">VIEW ALL</a>
-												People {{$userOnId->name}} thanked
+<!-- 												<a class="float-right fs-11 text-warning" href="{{URL::asset('')}}thankwall-1-0/id/{{$userOnId->id}}">VIEW ALL</a> -->
+												People you thanked in private
 											</h3>
 											<div class="h-250 slimscroll" data-always-visible="true" data-size="5px" data-position="right" data-opacity="0.4" disable-body-scroll="true">
 											@foreach ($Thanked as $ThankedS)
 												<div class="clearfix mb-10"><!-- squared item -->
 													<img class="thumbnail float-left" src="demo_files/images/people/300x300/1-min.jpg" width="40" height="40" alt="" />
-													<h4 class="fs-13 m-0 b-0 p-0"><a href="{{URL::asset('')}}showposts/postid/{{$ThankedS->post_thank_id}}">Thank you {{$ThankedS->to_name}}</a></h4>
-													<h3 class="fs-13 m-0 b-0 p-0"><a style="color:#1566A3;" href="{{URL::asset('')}}showposts/postid/{{$ThankedS->post_thank_id}}">{{$ThankedS->thank_title}}</a></h3>
+													<h4 class="fs-13 m-0 b-0 p-0"><a href="{{URL::asset('')}}from/{{$ThankedS->post_thank_id}}">Thank you {{$ThankedS->to_name}}</a></h4>
+													<h3 class="fs-13 m-0 b-0 p-0"><a style="color:#1566A3;" href="{{URL::asset('')}}from/{{$ThankedS->post_thank_id}}">{{$ThankedS->thank_title}}</a></h3>
 													<span class="fs-11 text-muted">{{$ThankedS->from_name}}, {{Carbon\Carbon::parse($ThankedS->created_at)->format('d M, Y')}}</span>
 												</div><!-- /squared item -->
 											@endforeach	

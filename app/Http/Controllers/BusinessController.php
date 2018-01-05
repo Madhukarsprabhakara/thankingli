@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\purchase_temps;
 use App\purchase_codes;
+use App\products;
 class BusinessController extends Controller
 {
     //
@@ -120,11 +121,15 @@ class BusinessController extends Controller
         	]);
         
     		$searchNames = purchase_codes::search($request['searchcode'])->paginate(5);
-    		
-    		//dd($searchNames);
+    		$product = products::where('id',$searchNames[0]->product_id)->get()->first();
+    		$productName = $product->product_name;
+    		$productPrice = $product->price;
+    		dd($productPrice);
     		//echo $searchCode;
     		
-    		return view('admin.editable-orders',compact('searchNames'));
+    		return view('admin.editable-orders',compact('searchNames'))
+    					->with('productName',$productName)
+						->with('price',$productPrice);
     	
     	}
     	elseif ($status == 1)
