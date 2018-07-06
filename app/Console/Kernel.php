@@ -14,6 +14,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         //
+	\App\Console\Commands\SendThankMsgRemindToNS::class,
+	\App\Console\Commands\SendCustomEmail::class
     ];
 
     /**
@@ -26,6 +28,8 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+
+	$schedule->command('SendEmailNotif:RemindToNS')->weekly()->sundays()->at('08:45');
     }
 
     /**

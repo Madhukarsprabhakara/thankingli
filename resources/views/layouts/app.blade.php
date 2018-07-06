@@ -12,8 +12,10 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    
 </head>
 <body>
+	@include('analyticstracking')
     <div id="app">
         <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
@@ -46,12 +48,25 @@
                             <li><a href="{{ route('login') }}">Login</a></li>
                             <li><a href="{{ route('register') }}">Register</a></li>
                         @else
+                        	<!-- 
+<li class="dropdown">
+                            	<a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    More <span class="caret"></span>
+                                </a>
+                            </li>
+ -->
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
+                                
+                                	<li>
+                                    	<a href="{{URL::asset('profile-edit')}}">
+                                            Profile
+                                        </a>
+                                    </li>
                                     <li>
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
@@ -63,8 +78,10 @@
                                             {{ csrf_field() }}
                                         </form>
                                     </li>
+                                    
                                 </ul>
                             </li>
+                            
                         @endif
                     </ul>
                 </div>
@@ -74,7 +91,11 @@
         @yield('content')
     </div>
 
+
     <!-- Scripts -->
+<!--     <script src="https://checkout.stripe.com/checkout.js"></script> -->
     <script src="{{ asset('js/app.js') }}"></script>
+<!-- 	<script src="https://checkout.stripe.com/checkout.js"></script> -->
+<!--      -->
 </body>
 </html>

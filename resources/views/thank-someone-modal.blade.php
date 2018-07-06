@@ -5,7 +5,10 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times; </button>
                 <h3 class="modal-title-site text-center"> Keep thanking! </h3>
             </div>
+            
             <div class="modal-body">
+            
+            	<p>This option is used to thank people who are NOT on the platform. To look for people already on the platfrom, please use the search option.</p>
                <form method="post" id="loginsubmit" action="/postthank" enctype="multipart/form-data"> 
 					{{csrf_field()}}
                 <div class="form-group reg-username">
@@ -35,18 +38,43 @@
  -->
                     </div>
                 </div>
+               <!-- 
+ @if (!empty ( $image ) )
                 <div class="form-group">
-                	<label class="btn btn-default">
-   						 Upload an image of the person <input name="image" type="file" hidden>
+                	<!~~ 
+<label class="btn btn-default">
+   						 Upload a photo of yourself (So the person knows who's thanking) <input name="image" type="file" hidden>
 					</label>
+ ~~>
+					<p>Note: We have a photo of yours on the file, that will be used in your thank post!<p>
+				</div>
+				@else
+				<div class="form-group">
+                	<label class="btn btn-default">
+   						 Upload a photo of yourself (So the person knows who's thanking) <input name="image" type="file" hidden>
+					</label>
+					<p>Note: You will only need to upload your image once, we'd use the same image for subsequent thank posts. 
+                                Please use a horizontal image while our engineers work on a fancy image processor!<p>
+				</div>
+				@endif
+ -->
+				<div class="form-group">
+                	<label class="btn btn-default">
+   						 Upload an optional photo (maybe of yours and the person you are thanking) <input name="image" type="file" hidden>
+					</label>
+<!-- 					<p>Note: You will only need to upload your image once, we'd use the same image for subsequent thank posts.  -->
+<!--                                 Please use a horizontal image while our engineers work on a fancy image processor!<p> -->
 				</div>
                 <div class="form-group">
                     <div>
                         <div class="checkbox login-remember">
                             <label>
-                                <input name="surprise" id="surprise" value="forever" checked="checked"
+                                <!-- 
+<input name="surprise" id="surprise" value="0" 
                                        type="checkbox">
-                                Is this a surprise? (Your name will not be included in the notification)</label>
+                                Are you friends with this person? (The person will be asked to confirm in the notification)</label>
+ -->
+                                
                         </div>
                     </div>
                 </div>

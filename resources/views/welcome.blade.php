@@ -2,14 +2,15 @@
 <html lang="{{ app()->getLocale() }}">
     @include('header')
     <body>
-        <div class="flex-center position-ref full-height">
+        @include('analyticstracking')
+	<div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
                     @if (Auth::check())
                         <a href="{{ url('/home') }}">Home</a>
                     @else
-                        <a href="{{ url('/login') }}">Login</a>
-                        <a href="{{ url('/register') }}">Register</a>
+                        <a href="{{ url('/login') }}">Sign in</a>
+                        <a href="{{ url('/register') }}">Sign up</a>
                     @endif
                 </div>
             @endif
@@ -20,13 +21,14 @@
                 </div>
 				
 				<div >
-				<h3>We all are helped by someone or something along our journey, Please take a moment to thank them.</h3>
+				<h3>We are all helped  by someone or something along our journey; Please take a moment to thank them.</h3>
 				<h3>Go ahead thank your family, friends, a country, a state, your dog,  well, just about anyone, anything or anyplace.</h3>
 				</div>
 				<div class="col-md-6 col-md-offset-3">
-					<a class="btn btn-primary pull-center" href="http://localhost/register">Sign up! <i class="fa fa-angle-right"></i></a>
+					<a class="btn btn-primary pull-center" href="{{URL::asset('register')}}">Sign up! <i class="fa fa-angle-right"></i></a>
 					or
-					<a class="btn btn-primary pull-center" href="http://localhost/login">Sign in! <i class="fa fa-angle-right"></i></a>
+				<!--	<a class="btn btn-primary pull-center" href="{{URL::asset('login')}}">Sign in! <i class="fa fa-angle-right"></i></a>-->
+					<a class="btn btn-primary pull-center" href="{{URL::asset('latestposts')}}">Read thank stories<i class="fa fa-angle-right"></i></a>
                 </div>
                 <!-- 
 <div class="links">
