@@ -85,34 +85,56 @@
           <!--Paste here-->
           <div class="col-md-6 flex-md-first align-self-center g-mb-80">
             <div class="mb-5">
-              <h1 class="h3 g-color-white g-font-weight-600 mb-3">Thankingli helps people thank anyone around the world.</h1>
+              <h1 class="h3 g-color-white g-font-weight-600 mb-3">Collaborate, Help, Thank, Inspire</h1>
               <!-- <p class="g-color-white-opacity-0_8 g-font-size-12 text-uppercase">Trusted by 31,000+ users globally</p> -->
             </div>
 
             <div class="row">
               <div class="col-md-11 col-lg-9">
                 <!-- Icon Blocks -->
-                <div class="media mb-4">
+                <div class="media mb-0">
                   <div class="d-flex mr-4">
                     <span class="align-self-center u-icon-v1 u-icon-size--lg g-color-white">
-                      <i class="icon-education-198 u-line-icon-pro"></i>
+                      <i class="icon-finance-203 u-line-icon-pro"></i>
                     </span>
                   </div>
                   <div class="media-body align-self-center">
-                    <p class="g-color-white mb-0">Read inspiring "Thank You" stories</p>
+                    <p class="g-color-white mb-0">Make natural connections by helping people</p>
                   </div>
                 </div>
                 <!-- End Icon Blocks -->
 
                 <!-- Icon Blocks -->
-                <div class="media mb-5">
+                <div class="media mb-0">
+                  <div class="d-flex mr-4">
+                    <span class="align-self-center u-icon-v1 u-icon-size--lg g-color-white">
+                      <i class="icon-real-estate-061 u-line-icon-pro"></i>
+                    </span>
+                  </div>
+                  <div class="media-body align-self-center">
+                    <p class="g-color-white mb-0">Ask for help anonymously</p>
+                  </div>
+                </div>
+                <!-- Icon Blocks -->
+                <div class="media mb-0">
+                  <div class="d-flex mr-4">
+                    <span class="align-self-center u-icon-v1 u-icon-size--lg g-color-white">
+                      <i class="icon-finance-257 u-line-icon-pro"></i>
+                    </span>
+                  </div>
+                  <div class="media-body align-self-center">
+                    <p class="g-color-white mb-0">Get smart "Good deeds" analytics</p>
+                  </div>
+                </div>
+                 <!-- Icon Blocks -->
+                <div class="media mb-0">
                   <div class="d-flex mr-4">
                     <span class="align-self-center u-icon-v1 u-icon-size--lg g-color-white">
                       <i class="icon-finance-017 u-line-icon-pro"></i>
                     </span>
                   </div>
                   <div class="media-body align-self-center">
-                    <p class="g-color-white mb-0">Write inspiring "Thank You" stories</p>
+                    <p class="g-color-white mb-0">Inspire someone with your "Thank You" story</p>
                   </div>
                 </div>
                 <!-- End Icon Blocks -->

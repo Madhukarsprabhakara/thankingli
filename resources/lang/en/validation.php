@@ -12,7 +12,7 @@ return [
     | as the size rules. Feel free to tweak each of these messages here.
     |
     */
-
+    //'belongs_id'           => 'The belongs id fiueld is compuldsry',
     'accepted'             => 'The :attribute must be accepted.',
     'active_url'           => 'The :attribute is not a valid URL.',
     'after'                => 'The :attribute must be a date after :date.',
@@ -100,8 +100,11 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        // 'attribute-name' => [
+        //     'rule-name' => 'custom-message',
+        // ],
+        'belongs_id' => [
+            'required' => 'We need to know your e-mail address!',
         ],
     ],
 
@@ -116,6 +119,9 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'belongs_id' => 'Belongs ID',
+
+    ],
 
 ];

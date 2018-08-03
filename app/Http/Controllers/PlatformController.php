@@ -467,6 +467,19 @@ class PlatformController extends Controller
         
         
     }
+    public function editProfilev3()
+    {
+        //
+            
+            $profileData = UserProfiles::where('id',\Auth::id())->get();
+            $userName=user::where('id',\Auth::id())->get(['name'])->first();
+            //dd($profileData);
+            return view('profile-editv3');
+        
+        
+        
+        
+    }
 
     /**
      * Update the specified resource in storage.

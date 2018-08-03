@@ -131,3 +131,36 @@ Route::get('/showpostsv3/postid/{postid}/show','ThankPostController@ShowPostIdv3
 Route::get('/loggedin','CustomSessionsController@loggedIn');
 Route::get('/getctoken','CustomSessionsController@csrfToken');
 Route::post('/loginv4','CustomSessionsController@loginV4');
+Route::post('/registerv4','CustomRegistrationController@registerv3');
+Route::get('/logoutv3','CustomSessionsController@logoutv3');
+
+//Routes for ategories
+Route::get('/populatecategorymenu','CategoriesController@PopulateCategoriesMenu');
+Route::post('/getsubcat','CategoriesController@getSubCategoryBasedOnCategory');
+Route::post('/getsubcats','CategoriesController@getSubCategoryBasedonCategories');
+
+//Routes for helpposts
+
+Route::post('/storehelpresponse','helpInboxController@storeHelpResponse');
+Route::get('/getinboxreplies','helpInboxController@getHelpResponses');
+Route::get('/helpsomeone','helpPostController@helpFeed');
+Route::post('/shresponsecomment','helpInboxController@storeHelpPostMsgResponse');
+//create a help request
+Route::post('/storehelppost','helpPostController@storeHelpPost');
+
+//Index help request
+Route::get('/indexhelp','AlgoliaIndexController@createHelpObjectToIndex');
+//Route::post('/createhelppost','');
+
+//Profile routes
+Route::get('/profile-editv3','PlatformController@editProfilev3');
+Route::get('/getudata','ProfileController@getUData');
+Route::get('/getsdata','ProfileController@getSData');
+Route::post('/postudata','ProfileController@storeProfileInfo');
+Route::post('/postsdata','ProfileController@storeProfileSkills');
+//Image upload
+Route::post('/uploadimage','ProfileController@storeImageData');
+
+//Search routes
+
+Route::post('/searchposts','AlgoliaSearchController@searchHelpPosts');

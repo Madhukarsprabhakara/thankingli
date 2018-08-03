@@ -132,6 +132,26 @@ class CustomSessionsController extends Controller
     	}
         
     }
+    protected function logoutv3()
+    {
+        try {
+            if(Auth::logout())
+                {
+                    $logObject = new LogsController("","200","You have been logged out successfully");
+                    $data=$logObject->dataFormattediwthStatus();
+                    return $data;    
+                }
+        }
+        catch (\Exception $e)
+        {
+            $logObject = new LogsController("","400",$e->getMessage());
+            $data=$logObject->dataFormattediwthStatus();
+            return $data;
+        }
 
+
+        
+
+    }
     
 }

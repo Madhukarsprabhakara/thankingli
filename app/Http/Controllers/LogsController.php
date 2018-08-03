@@ -19,7 +19,15 @@ class LogsController extends Controller
 	 }
     public function dataFormattediwthStatus()
     {
-    		$data['data']=(object)$this->data;
+            if ($this->data)
+            {
+                $data['data']=$this->data;
+            }
+            else
+            {
+              $data['data']=(object)$this->data;  
+            }
+    		
     		$data['status']=$this->status;
     		$data['message']=$this->message;
     		return $data;

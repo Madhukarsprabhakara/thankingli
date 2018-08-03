@@ -91,7 +91,7 @@
                                 <ul class="dropdown-menu" role="menu">
                                 
                                   <li>
-                                      <a href="{{URL::asset('profile-editv3')}}">
+                                      <a href="{{URL::asset('profile-edit')}}">
                                             Profile
                                         </a>
                                     </li>
@@ -150,7 +150,7 @@
 <div id="app">
     <!-- Blog Minimal Blocks -->
     <div class="container  g-pt-140 g-pb-20 " >
-      <div class="row ">
+      <div class="row">
         <div class="col-lg-6 order-lg-2 g-mb-80 ">
           <!-- <div class="container g-height-100  text-center">
               <a href="#!" class="g-bg-blue-lineargradient-v3" class="btn btn-md u-btn-primary g-mr-10 g-mb-15">Thank someone!</a>
@@ -169,172 +169,25 @@
                
                
 
-              <div class="form-group mb-0">
-    <!-- <label class="g-mb-10">Select date range</label> -->
-    <div class="row g-pl-40--lg">
-      <div class="col-md-6 g-mb-20 g-mb-0--xl">
-        <!-- Datepicker -->
-        <div class="input-group g-brd-primary--focus">
-          <a  class="btn u-btn-primary" href="/thanksomeonev3" >Thank someone!
-</a>
-          
-        </div>
-        <!-- End Datepicker -->
-      </div>
-
-      <div class="col-md-6">
-        <!-- Datepicker -->
-        <div class="input-group g-brd-primary--focus">
-          <a class="btn u-btn-primary" href="/helpsomeone" >Help someone!
-</a>
-          
-        </div>
-        <!-- End Datepicker -->
-      </div>
-    </div>
-  </div>
+             <div class="container text-center">
+              <h4>Please click on <i class="g-font-size-20 fa fa-envelope-o" ></i> to get in touch privately with the person you want to help</h4>
+               <!--  <a class="btn u-btn-primary" href="https://www.thankingli.com/thanksomeonev3" >Thank someone!
+</a> -->
+              </div>
               
           
               
                 <!-- <hr class="g-brd-secondary-light-v2 my-3"> -->
 
-                <!-- Info -->
-                <!-- <ul class="d-flex list-inline mb-0">
-                  <li class="list-inline-item mx-0">
-                    <a class="d-inline-block g-color-secondary-dark-v1 g-color-primary--hover g-font-size-12 g-text-underline--none--hover g-pr-5 g-py-4" href="#!">
-                      <i class="align-middle mr-1 icon-medical-022 u-line-icon-pro"></i>
-                      5
-                    </a>
-                  </li>
-                  <li class="list-inline-item mr-0">
-                    <a class="d-inline-block g-color-secondary-dark-v1 g-color-primary--hover g-font-size-12 g-text-underline--none--hover g-px-5 g-py-4" href="#!">
-                      <i class="align-middle mr-1 icon-finance-206 u-line-icon-pro"></i>
-                      1
-                    </a>
-                  </li>
-                  <li class="list-inline-item ml-auto mr-0">
-                    <span class="d-inline-block g-color-secondary-dark-v1 g-font-size-12 g-px-5 g-py-4">
-                      <i class="align-middle mr-1 icon-education-097 u-line-icon-pro"></i>
-                      15 min ago
-                    </span>
-                  </li>
-                </ul> -->
-                <!-- End Info -->
+              
               </div>
             </article>
             <br>
            <i  v-show="loading" class="fa fa-spinner" style="font-size:90px"></i>
 
-                    <!--help request form-->
-              <div v-if="createHelpClicked" class="col-md-12">
-                <div class="h-100 g-brd-around g-brd-gray-light-v7 g-rounded-4 g-pa-15 g-pa-30--md">
-                  <header>
-                    <h2 class="text-uppercase g-font-size-12 g-font-size-default--md g-color-black mb-0">Submit a Help request</h2>
-                  </header>
-
-                  <hr class="d-flex g-brd-gray-light-v7 g-my-15 g-my-25--md">
-
-                  <form>
-
-                    
-                      <div class="g-mb-20">
-                        <!-- <label class="g-mb-10" for="#dateFrom">Help request title</label> -->
-
-                        
-                          <div class="form-group mb-0">
-                            
-                              <input id="dateFrom" class="form-control form-control-md g-bg-white g-brd-gray-light-v7 g-brd-lightblue-v3--focus g-rounded-4 g-px-20 g-py-12" v-model="helptitle" placeholder="Title of your help request. Be as specific as possible." type="text" data-rp-wrapper="#dateFromWrapper" data-rp-date-format="d M Y" required>
-                              <span class="g-pos-abs g-top-0 g-right-0 g-z-index-2 g-width-40 h-100 g-font-size-18 g-color-gray-light-v6 rounded-0">
-                              
-                            </span>
-                            
-                          </div>
-                        
-                      </div>
-
-                    
-              
-                    <div class="g-mb-20">
-                      <!-- <label class="g-mb-10" for="#bio">Help request description</label> -->
-
-                      <div class="form-group mb-0">
-                        <textarea v-model="helpdescr" id="bio" class="form-control form-control-md g-brd-gray-light-v7 g-brd-lightblue-v3--focus g-rounded-4 g-px-20 g-py-12" placeholder="Detailed description. Again, it helps people if you are specific." rows="5" required></textarea>
-                      </div>
-                    </div>
-
-                    <div class="g-mb-20">
-                        <!-- <label class="g-mb-10" for="#dateFrom">Help request title</label> -->
-
-                        
-                          <div class="form-group mb-0">
-                            
-                              <input id="dateFrom" v-model="tags" class="form-control form-control-md g-bg-white g-brd-gray-light-v7 g-brd-lightblue-v3--focus g-rounded-4 g-px-20 g-py-12" placeholder="Tags for your request. Each tag should be seperated by a space." type="text" data-rp-wrapper="#dateFromWrapper" data-rp-date-format="d M Y" required>
-                              <span class="g-pos-abs g-top-0 g-right-0 g-z-index-2 g-width-40 h-100 g-font-size-18 g-color-gray-light-v6 rounded-0">
-                              
-                            </span>
-                            
-                          </div>
-                        
-                      </div>
-
-                    
-
-                    
-
-                    <div class="row">
-                      <div class="col-md-6 g-mb-20">
-                       
-
-                        <div  class="form-group mb-0">
-                          <select  v-model="catSelection"  class="form-control form-control-md rounded-0 g-mb-25" required>
-                            <option value="">--Select Category--</option>
-                            <option v-for="category in categories['data']"  :value="category['cat_id']">@{{category['cat_name']}}</option>
-                            <!-- <option value="3">Value Two</option>
-                            <option value="3">Value Three</option> -->
-                          </select>
-                        </div>
-                      </div>
-
-                      <div class="col-md-6 g-mb-20">
-                       
-
-                        <div  v-for="sub_category in subcategories['data']" class="form-group mb-0">
-                          <select :disabled="catSelection.length == 0" v-model="subcatid" class="form-control form-control-md rounded-0 g-mb-25" required>
-                            <option value="">--Select Subcategory--</option>
-                            <option v-for="subcategory in sub_category"  :value="subcategory['sub_cat_id']">@{{subcategory['sub_cat_name']}}</option>
-                            
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-
-                   
-
-                    
-
-                    
-
-                    
-
-                    <div>
-                      <input :disabled="subcatid.length == 0 || tags.length == 0 || helpdescr.length == 0 || helptitle.length == 0" class="btn btn-md btn-xl--md u-btn-lightblue-v3 g-width-160--md g-font-size-12 g-font-size-default--md g-mr-10 g-mb-10" v-on:click.stop.prevent="createHelpRequest" type="submit"></input>
-                      <button v-if="!helppoststatus" class="btn btn-md btn-xl--md u-btn-outline-gray-dark-v6 g-font-size-12 g-font-size-default--md g-mb-10" v-on:click.stop.prevent="createHelpClicked=false" type="reset">Cancel</button>
-                      <button v-else class="btn btn-md btn-xl--md u-btn-outline-gray-dark-v6 g-font-size-12 g-font-size-default--md g-mb-10" v-on:click.stop.prevent="createHelpClicked=false" type="reset">Go Back</button>
-                    </div>
-                  </form>
-                  <div v-if="helppoststatus" class="media">
-                  <span class="d-flex g-mr-10 g-mt-5">
-                    <i class="icon-check g-font-size-25"></i>
-                  </span>
-                  <span class="media-body align-self-center">
-                    <strong>Awesome!</strong> You successfully submitted your help request. Please try and help someone you can help, because thats what makes this world great!
-                  </span>
-                </div>
-                </div>
-              </div>
-              <!--help request form ends-->
+            
            
-              <thankdata v-if="!createHelpClicked" v-for="(post,index) in feed['ThankedBy']['data']" v-bind:key="post['post_thank_id']" v-bind:post="post" v-bind:index="index" v-bind:feed="feed"></thankdata>
+              <thankdata v-for="(post,index) in feed['ThankedBy']['data']" v-bind:key="post['post_thank_id']" v-bind:post="post" v-bind:index="index" v-bind:feed="feed"></thankdata>
             
          
          
@@ -348,7 +201,7 @@
 
            
             <!-- End Blog Minimal Blocks -->
-
+            
             <!-- Pagination -->
             <nav  class="text-center" aria-label="Page Navigation">
                <!-- <div v-infinite-scroll="loadMoreFeed(feed['ThankedBy']['next_page_url'])" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
@@ -377,23 +230,31 @@
               </ul>
             </nav>
             <!-- End Pagination -->
+            
           </div>
         <!-- </template> -->
         </div>
+
+
 
         <div class="col-lg-3 order-lg-1 g-brd-right--lg g-brd-gray-light-v4 g-mb-80">
           <div class="g-pr-20--lg">
             <!-- Links -->
 
-            <div id="stickyblock-start" class=" js-sticky-block g-sticky-block--lg g-pt-80" data-start-point="#stickyblock-start" data-end-point="#stickyblock-end">
+            <div id="stickyblock-start" class=" js-sticky-block g-sticky-block--lg g-pt-30" data-start-point="#stickyblock-start" data-end-point="#stickyblock-end">
 
-            <!--   <div class="g-mb-50">
+              <!-- <div class="g-mb-20">
          
-          <input class="form-control u-shadow-v19 g-brd-none g-bg-white g-font-size-16 g-rounded-30 g-px-30 g-py-13 g-mb-30" type="text" placeholder="eg. Olivia">
+          <input class="form-control u-shadow-v19 g-brd-none g-bg-white g-font-size-16 g-rounded-30 g-px-30 g-py-13 g-mb-10" type="text" placeholder="Search Help Requests">
         </div> -->
-              <div class="g-mb-50  ">
+        <div class="form-group ">
+    <!-- <label class="g-mb-10" for="inputGroup1_1">Text input</label> -->
+    <input id="inputGroup1_1" class="form-control form-control-md rounded-0" type="email" placeholder="Search Help Requests">
+    <!-- <small class="form-text text-muted g-font-size-default g-mt-10">We'll never share your email with anyone else.</small> -->
+  </div>
+              <div class="g-mb-50">
                 
-              <h3 class="h5 g-color-black g-font-weight-600 mb-4">Links</h3>
+              <h3 class="h5 g-color-black g-font-weight-600 mb-4">Categories</h3>
                <tabs>  
                   <tab name="Feed" :selected="true">
                       <!-- <thankdata></thankdata> -->
@@ -407,12 +268,16 @@
                </tabs>
             </div>
 
-            <a v-if="!createHelpClicked"  href="#!"  v-on:click.stop.prevent="showHelpRequestForm"  class="btn btn-md u-btn-outline-primary g-mr-10 g-mb-15">Create Help Request</a>
+
+
+            <a href="#!" class="btn btn-md u-btn-outline-primary g-mr-10 g-mb-15">Create Help Request</a>
             </div>
           </div>
         </div>
       </div>
     </div>
+
+
   </div>
     <!--Vue ends-->
 </section>
@@ -531,9 +396,11 @@
                <br>
             </article>
               </div>
+            
+
               </template>
                 <!-- End Info -->
-   
+            
 
    <!-- Footer -->
 <footer id="stickyblock-end" class="g-bg-secondary g-pt-30 g-pb-10">
@@ -818,7 +685,7 @@
       commentBox:function()
       {
 
-      console.log(this.feed);
+      //console.log(this.feed);
       if (this.commentShow==true)
       {
         this.commentShow=false;
@@ -917,7 +784,6 @@
   
   mounted(){
       this.populateFeed();
-      this.populateCategories();
     },
     // watch: { 
 
@@ -928,21 +794,22 @@
     // },
   watch: {
   
-        catSelection:function(catSelection)
-            {
-                this.$http.post('http://localhost/getsubcat',{
+        projectSelect: function(projectSelect) {
+          
 
-              cat_id:this.catSelection
-
-
-
-
-
-          }).then(function(response){
+            // Clear previously selected values
+            // this.countries = [];
+            // this.cities = [];
+            // this.selectedCountry = "";
+            // this.selectedCity = "";
+            // Populate list of countries in the second dropdown
+            this.projectSelect = projectSelect;
+            //console.log(projectSelect);
+            this.$http.get('http://127.0.0.1:8000/test/getmetricsets/'+this.projectSelect).then(function(response){
           if(response.status == "200")
           {
-            this.subcategories=response.body;
-            //console.log(this.dynamicFilterList);    
+            this.metricsSetList=response.body;
+            //console.log(this.metricsSetList);   
     
     
         } 
@@ -956,7 +823,12 @@
     
     
     });
-            },
+            if (this.projectSelect.length > 0) {
+              
+              //console.log(this.projectSelect.length);
+                // this.countries = this.places[this.selectedContinent]
+            }
+        },
         firstSelection: function(firstSelection) {
           //console.log(firstSelection);
 
@@ -1044,78 +916,6 @@
     
     });
       },
-      showHelpRequestForm:function()
-          {
-              //alert("cool");
-              if (this.createHelpClicked==true)
-              {
-                this.createHelpClicked=false;
-              }
-              else
-              {
-                this.createHelpClicked=true; 
-              }
-          },
-          createHelpRequest:function()
-          {
-              this.$http.post('http://localhost/storehelppost',{
-
-                help_post_title:this.helptitle,
-                help_post_descr:this.helpdescr,
-                tags:this.tags,
-                cat_id:this.catSelection,
-                sub_cat_id:this.subcatid,
-                _token: this.token
-
-
-
-
-
-          }).then(function(response){
-          if(response.status == "200")
-          {
-            this.subcategories=response.body;
-            this.helppoststatus=true;
-            //console.log(this.dynamicFilterList);    
-    
-    
-        } 
-        else
-        {
-          console.log("Bad");
-        } 
-      // console.log("Yes its here " +this.checkBox);
-//      console.log("Yes its here " +this.key);
-      
-    
-    
-    });
-          },
-          populateCategories:function() {
-            //this.loading = true;
-            this.$http.get('http://localhost/populatecategorymenu').then(function(response){
-              if(response.status == "200")
-              {
-
-                this.categories=response.body;
-                
-               // console.log(this.categories);   
-
-
-              } 
-              else
-              {
-                console.log(response);
-              } 
-      // console.log("Yes its here " +this.checkBox);
-//      console.log("Yes its here " +this.key);
-
-
-
-}.bind(this), function(response) {
-  alert("Something went wrong");
-});
-          },
     populateFeed:function() {
       this.loading = true;
         this.$http.get('http://localhost/thankfeed').then(function(response){
@@ -1124,7 +924,7 @@
              
             this.feed=response.body;
             this.loading = false;
-           // console.log(this.currentRoute);   
+            console.log(this.currentRoute);   
     
     
         } 
@@ -1154,26 +954,13 @@
     feed:'',
     postid:'',
     heartButtonFlag:true,
-    createHelpClicked:false,
     url:'',
      currentRoute:window.location.pathname,
-     helptitle:'',
-            helpdescr:'',
-            tags:'',
-             catSelection:'',
-             subcatid:'',
-             helppoststatus:false,
     urlmore:'',
     metricsSetList:[],
     commenttext:'Add a comment or Respond to the Thank You message',
-    dynamicFilterList:[],
-    dynamicYearsList:[],
-    dynamicYearSelect:'',
-    dynamicFilterSelect:[],
-    buttonClickState:false,
     busy: false,
     commentShow:false,
-    subcategories:'',
     loading: false,
     analyzeBySelect:[],
     //summaryData:'',

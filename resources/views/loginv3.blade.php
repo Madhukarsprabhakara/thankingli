@@ -79,7 +79,7 @@
               </header>
 
               <!-- Form -->
-              <form class="g-py-15" method="POST" action="/loginv4">
+              <form class="g-py-15" method="POST" action="{{ route('login') }}">
                 {{ csrf_field() }}
                 <div class="mb-4">
                   <label class="g-color-gray-dark-v2 g-font-weight-600 g-font-size-13">Email:</label>

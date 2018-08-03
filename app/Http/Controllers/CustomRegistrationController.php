@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Jobs\SendWelcomeToThankingliEmail;
 use App\reg_url_links;
+use App\Http\Controllers\LogsController;
 class CustomRegistrationController extends Controller
 {
     //
@@ -49,6 +50,41 @@ class CustomRegistrationController extends Controller
     
     		return view('auth.register-1-0');
     
+    }
+    public function registerv3(Request $request)
+    {
+       try {
+
+          $this->validate(request(), [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6|confirmed',
+        ]);
+
+         $user=User::create([
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'password' => bcrypt($request['password']),
+        ]);
+        auth()->login($user);
+        if (\Auth::check())
+        {
+          $logObject = new LogsController(["Id"=>\Auth::id()],"200","You have successfully Signed Up");  
+          $data=$logObject->dataFormattediwthStatus();
+          return $data;
+        }
+
+       } 
+       catch (\Exception $m)
+       {
+            $logObject = new LogsController("","500",$e->getMessage()); 
+            $data=$logObject->dataFormattediwthStatus();
+            return $data;
+       }
+        
+
+
+
     }
     //public function 
 }
