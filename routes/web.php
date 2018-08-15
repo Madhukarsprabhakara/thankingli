@@ -128,13 +128,21 @@ Route::get('/showpostsv3/postid/{postid}/show','ThankPostController@ShowPostIdv3
 
 //Thankingli with work orders
 
+
+
 Route::get('/loggedin','CustomSessionsController@loggedIn');
 Route::get('/getctoken','CustomSessionsController@csrfToken');
 Route::post('/loginv4','CustomSessionsController@loginV4');
 Route::post('/registerv4','CustomRegistrationController@registerv3');
 Route::get('/logoutv3','CustomSessionsController@logoutv3');
 
-//Routes for ategories
+//About us page
+
+Route::get('/aboutus',function() {
+	return view('about_us');
+});
+
+//Routes for categories
 Route::get('/populatecategorymenu','CategoriesController@PopulateCategoriesMenu');
 Route::post('/getsubcat','CategoriesController@getSubCategoryBasedOnCategory');
 Route::post('/getsubcats','CategoriesController@getSubCategoryBasedonCategories');

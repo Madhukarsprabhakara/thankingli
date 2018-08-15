@@ -172,10 +172,25 @@
                     </li>
                   </ul>
                   <!-- End Figure Social Icons -->
+                  
                 </div>
               </figcaption>
               <!-- End Figure Caption -->
+              <!-- <p   class="fa fa-spinner" style="font-size:20px">This message will self destroy when image is uploaded successfully</p> -->
+              <div v-show="loading" class="alert alert-dismissible fade show g-bg-teal g-color-white rounded-0" role="alert">
+                <button type="button" class="close u-alert-close--light" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+                </button>
 
+                <div class="media">
+                  <span class="d-flex g-mr-10 g-mt-5">
+                    <i class="icon-check g-font-size-25"></i>
+                  </span>
+                  <span class="media-body align-self-center">
+                    <strong>Please wait, Image upload in progress!</strong> This message will self destroy when image is uploaded successfully.
+                  </span>
+                </div>
+              </div>
               <!-- User Info -->
               <span class="g-pos-abs g-top-20 g-left-0">
                 <a class="btn btn-sm u-btn-primary rounded-0" href="#!">@{{udata['data']['name']}}</a>
@@ -584,6 +599,7 @@
             <div class="card-block g-pa-0">
               <div class="media g-brd-around g-bg-white g-brd-gray-light-v4 g-pa-20 g-mb-20">
                 <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-2 g-mr-20" src="unify/html/assets/img-temp/100x100/img14.jpg" alt="Image Description">
+                
                 <div class="media-body">
                   <div class="d-sm-flex justify-content-sm-between align-items-sm-center g-mb-15 g-mb-10--sm">
                     <header class="g-mb-5 g-mb-0--sm">
@@ -1088,7 +1104,7 @@
           },
           onFileChange:function($event)
           {
-
+            this.loading=true;
             this.imageFile=this.$refs.files.files[0];
             let formData = new FormData();
             formData.append('image', this.imageFile);
@@ -1098,9 +1114,9 @@
             if(response.status == "200")
             {
 
-              
-              this.populatesdata();
-              
+              this.loading=false;
+              this.populatesdata(); 
+              this.populateudata();
             } 
             else
             {
@@ -1282,7 +1298,7 @@
         inboxfeed:'',
         imageFile:'',
         token: csrf_token,
-
+        loading:false,
         catSelect:[],
         searchtext:'',
         helpfeed:'',

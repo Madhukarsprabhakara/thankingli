@@ -351,7 +351,7 @@
                 <h3 class="h5 mb-3">Categories</h3>
                 <div id="accordion-12" class="u-accordion u-accordion-color-primary " role="tablist" aria-multiselectable="true">
 
-                  <div v-for="category in categories['data']" class="card g-brd-none rounded-50 g-mb-15">
+                  <div v-for="category in categories['data']" class="card g-brd-none rounded-50 g-mb-5">
     <div  id="accordion-12-heading-01" class="u-accordion__header g-pa-0 g-bg-gray-light-v4" role="tab">
       <h5 class="mb-0">
         <a class="d-flex g-font-size-15 g-color-main g-text-underline--none--hover  g-brd-gray-light-v4 g-rounded-5 g-pa-0-10" :href="'#accordion-12-body-'+category['cat_id']" data-toggle="collapse" data-parent="#accordion-12" aria-expanded="true" aria-controls="accordion-12-body-01">
@@ -413,7 +413,8 @@
               <div class="g-brd-around g-brd-secondary-light-v2 g-bg-white g-pa-20">
                 <h3 class="g-font-size-12 ">Category: <span class="g-color-primary">@{{post['sub_cat_name']}}</span></h3>
                 <h3 class="g-font-size-16"><a class="u-link-v5 g-color-main g-color-primary--hover" href="#!">@{{post['help_post_title']}}</a></h3>
-                <p class="g-font-size-13">@{{post['help_post_descr']}}</p>
+                <!-- <p class="g-font-size-13">@{{post['help_post_descr']}}</p> -->
+                <p><span v-html="$options.filters.nl2br(post['help_post_descr'])" class="g-font-size-13"></span></p>
 
                 <hr class="g-brd-secondary-light-v2 my-3">
 

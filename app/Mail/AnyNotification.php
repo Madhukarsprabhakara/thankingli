@@ -16,9 +16,12 @@ class AnyNotification extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    public $subCatName,$userName;
+    public function __construct($subCatName,$userName)
     {
         //
+        $this->subCatName=$subCatName;
+        $this->userName=$userName;
     }
 
     /**
@@ -28,6 +31,12 @@ class AnyNotification extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.anynotification');
+        $subject = 'A Startup just raised a help request in one of your skills';
+        $url="https://www.thankingli.com/helpsomeone";
+        return $this->markdown('emails.anynotification')
+                    ->subject($subject)
+                    ->with('name',$this->userName)
+                    ->with('sub_cat_name',$this->subCatName)
+                    ->with('url',$url);
     }
 }

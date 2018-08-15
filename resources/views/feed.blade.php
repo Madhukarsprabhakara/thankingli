@@ -467,7 +467,7 @@
               <div   class="g-brd-around g-brd-secondary-light-v2 g-bg-white g-pa-20">
                 <p class="g-font-size-10">@{{post['from_name']}} <i class="align-middle mr-1 icon-medical-022 u-line-icon-pro"></i>@{{post['to_name']}}</p>
                 <h3 class="g-font-size-16"><a class="u-link-v5 g-color-main g-color-primary--hover" :href="'http://localhost/showpostsv3/postid/'+post['post_thank_id']"  >@{{post['thank_title']}}</a></h3>
-                <p  ><span v-html="$options.filters.nl2br(post['thank_description'])" class="g-font-size-13"></span></p>
+                <p><span v-html="$options.filters.nl2br(post['thank_description'])" class="g-font-size-13"></span></p>
 
                 <hr class="g-brd-secondary-light-v2 my-3">
                 <!-- Info -->

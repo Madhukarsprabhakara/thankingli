@@ -7,6 +7,7 @@ use App\User;
 use App\user_thanks;
 use App\user_thanks_comments;
 use App\UserProfiles;
+use App\profiles;
 use App\Http\Controllers\ThankPostController;
 use App\create_addnl_posts_infos;
 use Image;
@@ -187,8 +188,9 @@ class PlatformController extends Controller
             $userOnId = User::where('id',$id)->get()->first();
             $CommentsOnPosts1=[];
             //logic here
-            $profileImageCheck = UserProfiles::where('id',$id)->get(['image'])->first();
-            $profileWorksAt=UserProfiles::where('id',$id)->get(['company'])->first();
+            $profileImageCheck = profiles::where('id',$id)->get(['image'])->first();
+            $profileWorksAt=profiles::where('id',$id)->get(['company'])->first();
+
             $Thanked = user_thanks::where('from_id',$id)->where('private',0)->orderBy('created_at','desc')->simplePaginate(200);       
             $ThankedBy = user_thanks::where('to_id',$id)->where('private',0)->orderBy('created_at','desc')->simplePaginate(200);
 

@@ -9,6 +9,7 @@ use App\User;
 use App\categories;
 use App\sub_categories;
 use Carbon\Carbon;
+use App\Jobs\notifications;
 class AlgoliaIndexController extends Controller
 {
   
@@ -22,6 +23,8 @@ class AlgoliaIndexController extends Controller
 	{
 		//$helpObj= new helppost;
 		try {
+			$notificationType=1;
+        	//$notificationSubCatId='';
 			$dt = Carbon::parse($helpPost['created_at']);
 			$unixtime= $dt->timestamp;
 			$from_name=User::where('id',$helpPost['from_id'])->get(['name'])->first();
@@ -32,6 +35,7 @@ class AlgoliaIndexController extends Controller
 			$helpPost['sub_cat_name']=$sub_cat_name['sub_cat_name'];
 			$helpPost['created_at_unix']=$unixtime;
 			$response=$this->indexObject($helpPost);
+			dispatch(new notifications($notificationType,$helpPost['sub_cat_id'],$sub_cat_name['sub_cat_name']));
 			return $response;
 			
 		}

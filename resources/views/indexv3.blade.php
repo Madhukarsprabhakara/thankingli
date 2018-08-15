@@ -85,7 +85,7 @@
           <!--Paste here-->
           <div class="col-md-6 flex-md-first align-self-center g-mb-80">
             <div class="mb-5">
-              <h1 class="h3 g-color-white g-font-weight-600 mb-3">Collaborate, Help, Thank, Inspire</h1>
+              <h1 class="h3 g-color-white g-font-weight-600 mb-3">Thankingli helps people to collaborate, help, thank, inspire.</h1>
               <!-- <p class="g-color-white-opacity-0_8 g-font-size-12 text-uppercase">Trusted by 31,000+ users globally</p> -->
             </div>
 
@@ -95,47 +95,49 @@
                 <div class="media mb-0">
                   <div class="d-flex mr-4">
                     <span class="align-self-center u-icon-v1 u-icon-size--lg g-color-white">
-                      <i class="icon-finance-203 u-line-icon-pro"></i>
+                      <i class="icon-education-090 u-line-icon-pro"></i>
                     </span>
                   </div>
                   <div class="media-body align-self-center">
-                    <p class="g-color-white mb-0">Make natural connections by helping people</p>
+                    <p class="g-color-white mb-0">Each community member shares an expertise in something whether it's large or small.</p>
                   </div>
                 </div>
                 <!-- End Icon Blocks -->
 
                 <!-- Icon Blocks -->
-                <div class="media mb-0">
+                <div class="media mb-2">
                   <div class="d-flex mr-4">
                     <span class="align-self-center u-icon-v1 u-icon-size--lg g-color-white">
-                      <i class="icon-real-estate-061 u-line-icon-pro"></i>
+                      <i class="icon-finance-203 u-line-icon-pro"></i>
                     </span>
                   </div>
                   <div class="media-body align-self-center">
-                    <p class="g-color-white mb-0">Ask for help anonymously</p>
+                    <p class="g-color-white mb-0">Ask for help from fellow community members and offer up your talents, too.</p>
                   </div>
                 </div>
                 <!-- Icon Blocks -->
-                <div class="media mb-0">
-                  <div class="d-flex mr-4">
-                    <span class="align-self-center u-icon-v1 u-icon-size--lg g-color-white">
-                      <i class="icon-finance-257 u-line-icon-pro"></i>
-                    </span>
-                  </div>
-                  <div class="media-body align-self-center">
-                    <p class="g-color-white mb-0">Get smart "Good deeds" analytics</p>
-                  </div>
-                </div>
-                 <!-- Icon Blocks -->
-                <div class="media mb-0">
+                <div class="media mb-2">
                   <div class="d-flex mr-4">
                     <span class="align-self-center u-icon-v1 u-icon-size--lg g-color-white">
                       <i class="icon-finance-017 u-line-icon-pro"></i>
                     </span>
                   </div>
                   <div class="media-body align-self-center">
-                    <p class="g-color-white mb-0">Inspire someone with your "Thank You" story</p>
+                    <p class="g-color-white mb-0">Then, take the time to show your gratitude for the help. Share your appreciation story and pay it forward.</p>
                   </div>
+                </div>
+                 <!-- Icon Blocks -->
+                <div class="media mb-2">
+                  <div class="d-flex mr-4">
+                    <span class="align-self-center u-icon-v1 u-icon-size--lg g-color-white">
+                      <!-- <i class="icon-finance-017 u-line-icon-pro"></i> -->
+                    </span>
+                  </div>
+                  <div class="media-body align-self-center">
+                    <!-- <p class="g-color-white mb-0">Inspire someone with your "Thank You" story</p> -->
+                     <a class="g-font-weight-600" href="/loginv3">Learn more...</a>
+                  </div>
+
                 </div>
                 <!-- End Icon Blocks -->
                 <!-- Icon Blocks -->
@@ -154,6 +156,7 @@
 
                
               </div>
+
             </div>
           </div>
           <!--ends here-->
@@ -263,12 +266,20 @@
 
     <!-- Footer Copyright -->
     <div class="row justify-content-lg-center align-items-center text-center">
-      <div class="col-sm-6 col-md-4 col-lg-3 order-md-3 g-mb-30">
+
+       <div class="col-sm-6 col-md-4 col-lg-3 order-md-3 g-mb-30">
         <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#">
           <i class="align-middle mr-2 icon-real-estate-027 u-line-icon-pro"></i>
           Santa Clara, CA, United States
         </a>
       </div>
+      <div class="col-sm-6 col-md-4 col-lg-3 order-md-3 g-mb-30">
+        <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#">
+          <i class="align-middle mr-2 icon-finance-170 u-line-icon-pro"></i>
+          feedback@thankingli.com
+        </a>
+      </div>
+     
 
       
 

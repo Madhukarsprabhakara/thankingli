@@ -1,10 +1,15 @@
 @component('mail::message')
-# Introduction
+Hey {{$name}}!
 
-The body of your message.
+A startup just raised a help request in the following category.
 
-@component('mail::button', ['url' => ''])
-Button Text
+"<em>{{$sub_cat_name}}</em>"
+
+Don't miss your opportunity to help them!
+
+Browse, search or filter through the help requests.
+@component('mail::button', ['url' => $url])
+Help someone!
 @endcomponent
 
 Thanks,<br>

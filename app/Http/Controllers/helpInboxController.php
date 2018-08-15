@@ -8,6 +8,7 @@ use App\helppost;
 use App\helpInbox;
 use App\helpInboxMsgReplies;
 use App\Http\Controllers\LogsController;
+use App\Jobs\helpPostResponseNotification;
 class helpInboxController extends Controller
 {
     //
@@ -19,8 +20,9 @@ class helpInboxController extends Controller
     }
     public function storeHelpResponse(Request $request)
     {
-    	try {
-    		$this->validate(request(), [
+        try {
+            $notificationType=1;
+            $this->validate(request(), [
             'belongs_id' => 'nullable|integer',
             'from_id' => 'nullable|integer',
             'from_name' => 'nullable|string',
@@ -32,17 +34,24 @@ class helpInboxController extends Controller
         ]);
 
 
-    			$data = $request->all();
-    			$helpPost =  helppost::find($data['help_post_id']);
-    			$user=User::find($helpPost['from_id']);
+                $data = $request->all();
+                $helpPost =  helppost::find($data['help_post_id']);
+                $user=User::find($helpPost['from_id']);
+                $respondedBeforeFlag=helpInbox::where('help_post_id',$data['help_post_id'])->where('from_id',\Auth::id())->exists();
+                if ($respondedBeforeFlag)
+                {
+                    $logObject = new LogsController("","400",'You already responded to this Help request');
+                    $data=$logObject->dataFormattediwthStatus();
+                    return $data;
+                }
 
-    			$helpInboxObject= new helpInbox;
-    			$helpInboxObject->belongs_id=$helpPost['from_id'];
-    			$helpInboxObject->from_id=\Auth::id();
-    			$helpInboxObject->from_name=\Auth::user()->name;
-    			$helpInboxObject->help_post_id=$data['help_post_id'];
-    			$helpInboxObject->help_post_title=$helpPost['help_post_title'];
-    			$helpInboxObject->help_text=nl2br($data['help_text']);
+                $helpInboxObject= new helpInbox;
+                $helpInboxObject->belongs_id=$helpPost['from_id'];
+                $helpInboxObject->from_id=\Auth::id();
+                $helpInboxObject->from_name=\Auth::user()->name;
+                $helpInboxObject->help_post_id=$data['help_post_id'];
+                $helpInboxObject->help_post_title=$helpPost['help_post_title'];
+                $helpInboxObject->help_text=nl2br($data['help_text']);
                 if ($helpPost['from_id']!=\Auth::id())
                 {
                         $helpInboxObject->belongs_name=$user->name;
@@ -52,25 +61,28 @@ class helpInboxController extends Controller
                         $helpInboxObject->belongs_name='You';   
                 }
                 
-    			if (isset($data['help_image']))
-    			{
-    				$helpInboxObject->help_image=$data['help_image'];
-    			}
-    			
-    			if ($helpInboxObject->save())
-    			{
-    				$logObject = new LogsController("","200","Help Response Submitted");
-    				$data=$logObject->dataFormattediwthStatus();
-    				return $data;
-    			}
-    	}
-    	catch (\Exception $e)
-    	{
-    			$logObject = new LogsController("","400",$e->getMessage());
-            	$data=$logObject->dataFormattediwthStatus();
-            	return $data;
-    	}
+                if (isset($data['help_image']))
+                {
+                    $helpInboxObject->help_image=$data['help_image'];
+                }
+                
+                if ($helpInboxObject->save())
+                {
+                    $logObject = new LogsController("","200","Help Response Submitted");
+                    $data=$logObject->dataFormattediwthStatus();
+                //Dispatch notification email here
+                         //dispatch(new helpPostResponseNotification($notificationType,$helpPost['from_id'],\Auth::user()->name,\Auth::id(),$helpPost['help_post_title'],$helpInboxObject->in_id,$helpInboxObject->help_text));
+                    return $data;
+                }
+        }
+        catch (\Exception $e)
+        {
+                $logObject = new LogsController("","400",$e->getMessage());
+                $data=$logObject->dataFormattediwthStatus();
+                return $data;
+        }
     }
+
     protected function getHelpResponses(Request $request)
     {
     	try {
@@ -109,18 +121,21 @@ class helpInboxController extends Controller
     protected function storeHelpPostMsgResponse(Request $request)
     {
     		try {
+                $notificationType=2;
     			$user_id=\Auth::id();
     			$data=$request->all();
+                $helppost=helppost::find($data['help_post_id']);
     			$inboxMsgRepObj=new helpInboxMsgReplies;
     			$inboxMsgRepObj->id=$user_id;
     			$inboxMsgRepObj->in_id=$data['in_id'];
     			$inboxMsgRepObj->help_post_id=$data['help_post_id'];
     			$inboxMsgRepObj->comment_from_name=\Auth::user()->name;
-    			$inboxMsgRepObj->comment_text=$data['commenttext'];
+    			$inboxMsgRepObj->comment_text=nl2br($data['commenttext']);
     			if ($inboxMsgRepObj->save())
     			{
     				$logObject = new LogsController("","200","Replied Successfully");
             		$data=$logObject->dataFormattediwthStatus();
+                    dispatch(new helpPostResponseNotification($notificationType,$helppost->from_id,\Auth::user()->name,\Auth::id(),$helppost->help_post_title,$inboxMsgRepObj->in_id,$inboxMsgRepObj->comment_text));
             		return $data;
     			}
 
